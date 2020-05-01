@@ -1,0 +1,7 @@
+build/
+
+# Exclude everything from .vscode/ except launch.json
+.vscode/*
+!.vscode/launch.json
+
+.DS_Store
