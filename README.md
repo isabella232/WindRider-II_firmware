@@ -5,7 +5,7 @@
 3. SWD probe - Used for flashing and debugging. Can be either st-link or j-link.
 
 ## Build
-Specify ARM toolchain location. Set [`TOOLCHIN_PATH`](CMakeLists.txt#5) in CMakeLists.txt to point to the toolchain's bin directory.
+Specify ARM toolchain location. Set [`TOOLCHIN_PATH`](CMakeLists.txt#5) in CMakeLists.txt to point to your toolchain's bin directory.
 ```CMake
 SET(TOOLCHIN_PATH "/your_path/gcc-arm-none-eabi-9-2019-q4-major/bin")
 ```
@@ -39,7 +39,9 @@ There are two ways to upload firmware using J-Link - Command Line and GUI.
 
 #### JFlashLite GUI
 Run JFlashLite with the following settings.
-![](.readme_img/JFlashLite.png)
+
+<img src=".readme_img/JFlashLite.png" width="600">
+
 In the next prompt select *windrider.hex* as data file. Click **Erase**, then **Program**.
 #### JLinkExe Command Line
 Navigate to build folder. Connect to target.
@@ -59,3 +61,5 @@ Navigate to build folder. Run `st-flash`.
 st-flash write windrider.bin 0x08000000
 ```
 
+## Run
+Connect the host computer to the WindRider board via USB.
