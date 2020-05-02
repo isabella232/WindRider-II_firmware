@@ -62,4 +62,26 @@ st-flash write windrider.bin 0x08000000
 ```
 
 ## Run
-Connect the host computer to the WindRider board via USB.
+Connect host computer to WindRider board via USB. Use a modem control software (e.g. [minicom](https://linux.die.net/man/1/minicom)) or serial port API (e.g. [pyserial](https://pyserial.readthedocs.io/en/latest)).
+
+To print a full list of commands and arguments type `?` and hit return.
+
+Some examples of valid commands:  
+`solenoid 1 5 20` -- Enable impactor at channel 1, on_time = 5ms, off_time = 20ms.  
+`servo 0 100`     -- Set servo at channel 0 to 100 deg. 
+
+### Command Table
+| Token | Argument 1 | Argument 2 | Argument 3 | Description |
+|:------|:-----------|:----------:|:-----------|:------------|
+|current| None       | None       | None       | Print suction current |
+|led    |#channel [0-3]| current [0-1500]mA| None | Set led current |
+|left   |[–30000…30000]| None   | None       | Set left motor speed |
+|right  |[–30000…30000]| None   | None       | Set right motor speed |
+|servo  |#channel [0-1]|Angle [0-180]deg| None | Set servo angle |
+|solenoid|#channel [0-1]|[on] or [off]| None   | Enable/Disable impactor |
+|solenoid|#channel [0-1]|[0-5000]ms on_time|[0-5000]ms off_time| Set impactor on/off time intervals|
+|straight|[–30 000…30 000]| None  | None       | Speed loaded into both motor drivers synchronously|
+|suction|[on] or [off]| None      | None       | Enable/Disable suction power|
+|uart   | [forward] |["cmd_to_send"]| None     | Forward "cmd_to_send" to rs232|
+|uart   | [reply]   |[on] or [off]| None       | Print incoming feedback from rs232|
+
