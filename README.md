@@ -1,7 +1,4 @@
-## WindRider firmware
-
-version1: compiles and debugs in vscode!
-
+# WindRider Firmware
 ## Dependencies
 1. [arm-none-eabi](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) - ARM toolchain.
 2. [CMake](https://cmake.org/download/) - Build system.
@@ -45,7 +42,7 @@ Run JFlashLite with the following settings.
 
 In the next prompt select *windrider.hex* as data file. Click **Erase**, then **Program**.
 #### JLinkExe Command Line
-Connect to target
+Navigate to build folder. Connect to target.
 ```shell
 JLinkExe -device "STM32F103C6 (allow opt. bytes)" -if SWD -speed 4000 -autoconnect
 ```
@@ -55,5 +52,10 @@ r
 erase
 loadbin "windrider.bin" 0x08000000 
 verifybin "windrider.bin" 0x08000000 
+```
+### ST-Link
+Navigate to build folder. Run `st-flash`.
+```
+st-flash write windrider.bin 0x08000000
 ```
 
