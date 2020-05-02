@@ -72,7 +72,7 @@ Some examples of valid commands:
 
 ### Command Table
 | Token | Argument 1 | Argument 2 | Argument 3 | Description |
-|:------|:-----------|:----------:|:-----------|:------------|
+|:-----:|:----------:|:----------:|:----------:|:------------|
 |current| None       | None       | None       | Print suction current |
 |led    |#channel [0-3]| current [0-1500]mA| None | Set led current |
 |left   |[–30000…30000]| None   | None       | Set left motor speed |
