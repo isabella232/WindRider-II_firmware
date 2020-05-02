@@ -91,11 +91,11 @@ A detailed command description can be found in the project wiki.
 CCNY Robotics Lab welcomes you, human! You are interested in working on our embedded projects and..
 
 ### You don't know where to start
-A good chunk of this project is built on top of the STM Pheripheral Library; following steps will familiarize you with with its ~~bugs~~ capabilities.
+A good chunk of this project is built on top of the STM Peripheral Library; following steps will familiarize you with its ~~bugs~~ capabilities.
 
-  1. *Wake up, Neo!* Get a blue pill, or any other stm32 dev board. You will need a debugger probe (e.g. st-link or j-link). Most of the official stm 32 dev boards come with st-link on board.  
+  1. *Wake up, Neo!* Get a blue pill or any other stm32 dev board. You will need a debugger probe (e.g. st-link or j-link). Most of the official STM32 dev boards come with st-link on board.  
   2. *Goodbye Arduino.* Write a blinky. Start a timer to trigger an interrupt. Send the core to sleep. Interrupt to change the led state and back to sleep.  
-  3. *Feel the pulse.* Set up a timer driven pwm to change the led brightness. Make a potentiometer to controll the brightness. Main loop must be empty.   
+  3. *Feel the pulse.* Set up a timer driven pwm to change the led brightness. Control the brightness with a potentiometer. The main loop must remain empty.   
   4. *Plug and play!* Set up a USB Communication Device Class. Make your led dimmable form a serial terminal.  
   5. Report to base.  
   
