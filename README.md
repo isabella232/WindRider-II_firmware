@@ -39,12 +39,12 @@ There are two ways to upload firmware using J-Link - Command Line and GUI.
 
 #### JFlashLite GUI
 Run JFlashLite with the following settings.
-
+![](.readme_img/JFlashLite.png)
 In the next prompt select *windrider.hex* as data file. Click **Erase**, then **Program**.
 #### JLinkExe Command Line
 Navigate to build folder. Connect to target.
 ```shell
-JLinkExe -device "STM32F103C6 (allow opt. bytes)" -if SWD -speed 4000 -autoconnect
+JLinkExe -device "STM32F103C8" -if SWD -speed 4000 -autoconnect
 ```
 Reset, erase, load, verify.
 ```
