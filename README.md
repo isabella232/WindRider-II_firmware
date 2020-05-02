@@ -80,8 +80,25 @@ Some examples of valid commands:
 |servo  |#channel [0-1]|Angle [0-180]deg| None | Set servo angle |
 |solenoid|#channel [0-1]|[on] or [off]| None   | Enable/Disable impactor |
 |solenoid|#channel [0-1]|[0-5000]ms on_time|[0-5000]ms off_time| Set impactor on/off time intervals|
-|straight|[–30 000…30 000]| None  | None       | Speed loaded into both motor drivers synchronously|
+|straight|[–30000…30000]| None  | None       | Speed loaded into both motor drivers synchronously|
 |suction|[on] or [off]| None      | None       | Enable/Disable suction power|
 |uart   | [forward] |["cmd_to_send"]| None     | Forward "cmd_to_send" to rs232|
 |uart   | [reply]   |[on] or [off]| None       | Print incoming feedback from rs232|
 
+A detailed command description can be found in the project wiki.
+
+## Contribute
+CCNY Robotics Lab welcomes you, human! You are interested in working on our embedded projects and..
+
+### You don't know where to start
+A good chunk of this project is built on top of the STM Pheripheral Library; following steps will familiarize you with with its ~~bugs~~ capabilities.
+
+  1. *Wake up, Neo!* Get a blue pill, or any other stm32 dev board. You will need a debugger probe (e.g. st-link or j-link). Most of the official stm 32 dev boards come with st-link on board.  
+  2. *Goodbye Arduino.* Write a blinky. Start a timer to trigger an interrupt. Send the core to sleep. Interrupt to change the led state and back to sleep.  
+  3. *Feel the pulse.* Set up a timer driven pwm to change the led brightness. Make a potentiometer to controll the brightness. Main loop must be empty.   
+  4. *Plug and play!* Set up a USB Communication Device Class. Make your led dimmable form a serial terminal.  
+  5. Report to base.  
+  
+  Make sure you can build and flash your code without using an IDE.
+  
+  
