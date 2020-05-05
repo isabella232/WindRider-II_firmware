@@ -33,7 +33,7 @@ FaulhaberComm::FaulhaberComm(uint8_t addr):_addr(addr){
     /**
     * @brief Initializes hardware and loads configureations.
     */
-void FaulhaberComm::initialize(){
+void FaulhaberComm::initialize_hardware(){
 
     // Enable Clock
     __HAL_RCC_USART1_CLK_ENABLE();
@@ -107,7 +107,7 @@ void FaulhaberComm::initialize(){
 
 //! method configure_motor_driver
     /**
-    * @brief Loads configuration.
+    * @brief Load default motor driver configuration.
     */ 
 void FaulhaberComm::configure_motor_driver(void){
 
@@ -143,10 +143,10 @@ void FaulhaberComm::send(std::string cmd){
 };
 
 //! method process_feedback
-    /**
-    * @brief Called from the main loop to force print every terminated line received by uart.
-    *        Used for debugging. Deletes the command form the queue after printing. Call write_and_return for normal operation.
-    */ 
+/**
+* @brief Called from the main loop to force print every terminated line received by uart.
+*        Used for debugging. Deletes the command form the queue after printing. Call write_and_return for normal operation.
+*/ 
 void FaulhaberComm::process_feedback(void){
     
     if(feedback_queue.get_queue_size() != 0){
@@ -159,9 +159,9 @@ void FaulhaberComm::process_feedback(void){
 };
 
 //! method enable_forwarding
-    /**
-    * @brief After calling this functions every line received by uart is printed.
-    */ 
+/**
+* @brief After calling this functions every line received by uart is printed.
+*/ 
 void FaulhaberComm::enable_forwarding(void){
     _forwarding = true;
 };
@@ -238,9 +238,9 @@ void FaulhaberComm::write_sync(std::string cmd){
                   });
 
 }
-//! method set_velocity.
+//! set_velocity method.
     /**
-    * @param velocity set velocity of each individual motor.
+    * @param velocity Set velocity.
     */
 void FaulhaberComm::set_velocity(uint16_t velocity){
 

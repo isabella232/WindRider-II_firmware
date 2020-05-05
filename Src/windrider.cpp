@@ -3,7 +3,6 @@
 #include "initialization.h"
 
 // TODO: Mege windrider.cpp with initialization.cpp
-
 // bad bad practices...
 extern TIM_HandleTypeDef htim2, htim3;
 extern ADC_HandleTypeDef hadc1;
@@ -50,7 +49,7 @@ namespace HardwareDriver {
                         solenoid.initialize();
                     });
 
-        FaulhaberComm::initialize();
+        //FaulhaberComm::initialize();
     }
 
     //! method error
@@ -182,7 +181,7 @@ namespace HardwareDriver {
             
         }
         
-        if(0 <= power and power <= 70){
+        if(0 <= power and power <= 100){
             sConfigOC.Pulse = static_cast<uint16_t>(htim3.Init.Period*power/100.0);
             HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
             HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);

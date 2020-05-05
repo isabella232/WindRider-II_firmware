@@ -1,3 +1,9 @@
+//! CommandQueue implementation file.
+/**
+ * @file      CommandQueue.h
+ * @author    Stanislav Sotnikov (stanislav.sotnikov145@gmail.com)
+ *
+ */
 #ifndef COMMANDQUEUE_H
 #define COMMANDQUEUE_H
 
@@ -5,9 +11,8 @@
 
 //! Template class CommandQueue
 /**
- * @tparam Container        To store each command in the queue.
+ * @tparam Container        A container class to store each command in the queue.
  * @tparam control_element  Software control element that seperates commands in the queue.
- * 
  */
 template<class Container, 
          typename Container::value_type control_element>
@@ -37,21 +42,6 @@ class CommandQueue{
                 if(_command_queue.back().back() == control_element)
                     _command_queue.back().shrink_to_fit();
             }
-        }  
-    };
-
-    void insert_received_elements(typename Container::value_type element){
-   
-        if(_command_queue.empty() or _command_queue.back().back() == control_element){
-            _command_queue.push_back(Container());
-            _command_queue.back().push_back(element);
-        }
-        else{
-            _command_queue.back().push_back(element);
-
-            if(_command_queue.back().back() == control_element)
-                _command_queue.back().shrink_to_fit();
-
         }  
     };
 

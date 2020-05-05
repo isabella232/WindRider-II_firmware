@@ -6,11 +6,10 @@
 #include <deque>
 #include <string>
 #include <algorithm>
-//#include <stdexcept>
 
 #include "usbd_cdc_if.h"
 #include "CommandQueue.h"
-#include "FaulhaberComm.h"
+//#include "FaulhaberComm.h"
 
 class UsbComm {
 
