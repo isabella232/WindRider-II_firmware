@@ -8,9 +8,9 @@
 
 #include "initialization.h"
 #include "stm32f1xx_it.h"
-#include "windrider.h"
-#include "FaulhaberComm.h"
 
+#include "FaulhaberComm.h"
+#include "Solenoid.h"
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_FS;
 
@@ -158,7 +158,7 @@ void ADCx_IRQHandler(void)
 
 void TIM3_IRQHandler(void){
 
-  HardwareDriver::Solenoid::tick();
+  Solenoid::tick();
   __HAL_TIM_CLEAR_IT(&htim3 ,TIM_IT_UPDATE);
 }
 

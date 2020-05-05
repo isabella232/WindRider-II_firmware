@@ -26,7 +26,8 @@
 #include "FaulhaberComm.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
-#include "windrider.h"
+#include "HardwareDriver.h"
+#include "UsbComm.h"
 
 /**
   * @brief  The application entry point.

@@ -1,8 +1,8 @@
 #include "initialization.h"
-#include "windrider.h"
+#include "HardwareDriver.h"
 #include "FaulhaberComm.h"
-// Some global Variables
 
+// Some global Variables
 ADC_HandleTypeDef hadc1;
 TIM_HandleTypeDef htim2, htim3;
 UART_HandleTypeDef huart1;

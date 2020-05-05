@@ -1,5 +1,6 @@
 #include "FaulhaberComm.h"
-#include "windrider.h"
+#include "HardwareDriver.h"
+#include "UsbComm.h"
 
 // Check if hardware is initialized.
 bool FaulhaberComm::_initialized = false;

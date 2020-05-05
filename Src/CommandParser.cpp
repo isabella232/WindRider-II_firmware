@@ -6,7 +6,7 @@
  */
 
 #include "CommandParser.h"
-#include "windrider.h"
+#include "HardwareDriver.h"
 
 namespace CommandParser{
 
