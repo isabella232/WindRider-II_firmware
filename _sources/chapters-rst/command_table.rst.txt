@@ -1,7 +1,81 @@
-=============
+=================
+Command Interface
+=================
+
 Command Table
 =============
 
-The Table
----------
+The table of all available commands is shown below.
+
+.. csv-table::
+   :file: cmd_table.csv
+   :widths: 5, 10, 10, 10, 25
+   :align: center
+   :header-rows: 1
+
+current
+=======
+
+Prints current supplied to suction motor in mA.
+
+Example:
+--------
+
+.. code-block: shell
+
+ current	## Request suction current. Command has no arguments.
+ 1234		## Returned: 1.234 A
+
+Peripherals
+-----------
+
+Command Handler: HardwareDriver::suction_current(std::string arg) 
+
+`[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L318>`_
+
+ADC1 Measures the voltage level on port GPIOA, pin GPIO_PIN_5.
+
+.. warning::
+
+ Due to the hardware issues with compatibility of the hall effect sensor with the isolated amplifier, this feature is currently disabled.
+
+led
+===
+
+The led drivers are programmable current sources -- adjust the voltage to maintain a set current. This command manipulates the current sources.
+
+Example:
+--------
+
+.. code-block: shell
+
+ # Configure led brightness. This does not turn leds on.
+ led 0 100	## Set current on channel 0 to 100mA
+ led 1 200	## Set current on channel 1 to 200mA
+ led 2 1000	## Set current on channel 2 to 1A
+
+ # This turns all led channels on at once
+ led on
+
+ # We can turn all channels off at once as well
+
+ led off
+
+ # Or turn channels on/off selectively
+
+ led 0 on	# Turns on only channel 0.
+ led 2 off	$ Turns off only channel 2.
+
+Peripherals
+-----------
+Command Handler: HardwareDriver::led(std::string arg)
+
+`[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L262>`_
+
+Led drivers require pwm signal, the duty cycle is mapped proportionally to the current output. The drivers will automatically adjust the voltage to maintain constant current.
+
+ - 0% duty cycle	--- 0mA current
+ - 100% duty cycle	--- 1500mA current
+
+The pwm generation is mapped to the following peripherals. 
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Command Table &mdash; WindRider  documentation</title>
+  <title>Command Interface &mdash; WindRider  documentation</title>
   
 
   
@@ -91,7 +91,17 @@
 <li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_flow.html">Code Flow</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Command Table</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-table">The Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-table">Command Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#current">current</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#peripherals">Peripherals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#led">led</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Example:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Peripherals</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -139,7 +149,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Command Table</li>
+      <li>Command Interface</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -158,10 +168,139 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="command-table">
-<h1>Command Table<a class="headerlink" href="#command-table" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="the-table">
-<h2>The Table<a class="headerlink" href="#the-table" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="command-interface">
+<h1>Command Interface<a class="headerlink" href="#command-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="command-table">
+<h2>Command Table<a class="headerlink" href="#command-table" title="Permalink to this headline">¶</a></h2>
+<p>The table of all available commands is shown below.</p>
+<table class="colwidths-given docutils align-center">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Token</p></th>
+<th class="head"><p>Argument 1</p></th>
+<th class="head"><p>Argument 2</p></th>
+<th class="head"><p>Argument 3</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>current</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>Print suction current.</p></td>
+</tr>
+<tr class="row-odd"><td><p>led</p></td>
+<td><p>#channel [0-3]</p></td>
+<td><p>[on] or [off]</p></td>
+<td><p>None</p></td>
+<td><p>Turn led on/off (uses the most recent currentconfiguration)</p></td>
+</tr>
+<tr class="row-even"><td><p>led</p></td>
+<td><p>#channel [0-3]</p></td>
+<td><p>current [0-1500]mA</p></td>
+<td><p>None</p></td>
+<td><p>Set led current.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Left</p></td>
+<td><p>[–30000…30000]</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>Set left motor speed.</p></td>
+</tr>
+<tr class="row-even"><td><p>right</p></td>
+<td><p>[–30000…30000]</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>Set right motor speed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>servo</p></td>
+<td><p>#channel [0-1]</p></td>
+<td><p>Angle [0-180]deg</p></td>
+<td><p>None</p></td>
+<td><p>Set servo angle.</p></td>
+</tr>
+<tr class="row-even"><td><p>solenoid</p></td>
+<td><p>#channel [0-1]</p></td>
+<td><p>[on] or [off]</p></td>
+<td><p>None</p></td>
+<td><p>Enable/Disable impactor.</p></td>
+</tr>
+<tr class="row-odd"><td><p>solenoid</p></td>
+<td><p>#channel [0-1]</p></td>
+<td><p>[0-5000]ms on_time</p></td>
+<td><p>[0-5000]ms off_time</p></td>
+<td><p>Set impactor on/off time intervals.</p></td>
+</tr>
+<tr class="row-even"><td><p>straight</p></td>
+<td><p>[–30000…30000]</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>Speed loaded into both motor drivers synchronously.</p></td>
+</tr>
+<tr class="row-odd"><td><p>suction</p></td>
+<td><p>[on] or [off]</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>Enable/Disable suction power.</p></td>
+</tr>
+<tr class="row-even"><td><p>uart</p></td>
+<td><p>[forward]</p></td>
+<td><p>[“cmd_to_send”]</p></td>
+<td><p>None</p></td>
+<td><p>Forward “cmd_to_send” to rs232</p></td>
+</tr>
+<tr class="row-odd"><td><p>uart</p></td>
+<td><p>[reply]</p></td>
+<td><p>[on] or [off]</p></td>
+<td><p>None</p></td>
+<td><p>Print incoming feedback from rs232</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="current">
+<h2>current<a class="headerlink" href="#current" title="Permalink to this headline">¶</a></h2>
+<p>Prints current supplied to suction motor in mA.</p>
+<div class="section" id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="peripherals">
+<h3>Peripherals<a class="headerlink" href="#peripherals" title="Permalink to this headline">¶</a></h3>
+<p>Command Handler: HardwareDriver::suction_current(std::string arg)</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L318">[view source]</a></p>
+<p>ADC1 Measures the voltage level on port GPIOA, pin GPIO_PIN_5.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Due to the hardware issues with compatibility of the hall effect sensor with the isolated amplifier, this feature is currently disabled.</p>
+</div>
+</div>
+</div>
+<div class="section" id="led">
+<h2>led<a class="headerlink" href="#led" title="Permalink to this headline">¶</a></h2>
+<p>The led drivers are programmable current sources – adjust the voltage to maintain a set current. This command manipulates the current sources.</p>
+<div class="section" id="id1">
+<h3>Example:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id2">
+<h3>Peripherals<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Command Handler: HardwareDriver::led(std::string arg)</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L262">[view source]</a></p>
+<p>Led drivers require pwm signal, the duty cycle is mapped proportionally to the current output. The drivers will automatically adjust the voltage to maintain constant current.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>0% duty cycle    — 0mA current</p></li>
+<li><p>100% duty cycle  — 1500mA current</p></li>
+</ul>
+</div></blockquote>
+<p>The pwm generation is mapped to the following peripherals.</p>
+</div>
 </div>
 </div>
 
