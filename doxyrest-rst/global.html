@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Global Namespace &mdash; WindRider  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/target-highlight.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> WindRider
+          
+
+          
+            
+            <img src="../_static/robot.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/build_and_flash.html">Build and Flash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/code_flow.html">Code Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/command_table.html">Command Table</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">WindRider</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Global Namespace</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/doxyrest-rst/global.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="global"></span><div class="section" id="global-namespace">
+<span id="index-0"></span><h1>Global Namespace<a class="headerlink" href="#global-namespace" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<pre class="highlight doxyrest-overview-code-block literal-block"><span></span><span class="c1">// namespaces</span>
+
+<span class="k">namespace</span> <a class="reference internal" href="namespace_CommandParser.html#doxid-namespace-command-parser"><span class="std std-ref">CommandParser</span></a><span></span><span class="p">;</span>
+<span class="k">namespace</span> <a class="reference internal" href="namespace_HardwareDriver.html#doxid-namespace-hardware-driver"><span class="std std-ref">HardwareDriver</span></a><span></span><span class="p">;</span>
+
+<span class="c1">// classes</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="n">Container</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Container</span><span class="o">::</span><span class="n">value_type</span> <span class="n">control_element</span><span class="o">&gt;</span>
+<span class="k">class</span> <a class="reference internal" href="class_CommandQueue.html#doxid-class-command-queue"><span class="std std-ref">CommandQueue</span></a><span></span><span class="p">;</span>
+
+<span class="k">class</span> <a class="reference internal" href="class_FaulhaberComm.html#doxid-class-faulhaber-comm"><span class="std std-ref">FaulhaberComm</span></a><span></span><span class="p">;</span>
+<span class="k">class</span> <a class="reference internal" href="class_Solenoid.html#doxid-class-solenoid"><span class="std std-ref">Solenoid</span></a><span></span><span class="p">;</span>
+<span class="k">class</span> <a class="reference internal" href="class_UsbComm.html#doxid-class-usb-comm"><span class="std std-ref">UsbComm</span></a><span></span><span class="p">;</span>
+
+<span class="c1">// global functions</span>
+
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1ac44620ac8c24a860cc733a73d8f9882a"><span></span><span class="n">Initialize_Peripherals</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1a70af21c671abfcc773614a9a4f63d920"><span></span><span class="n">SystemClock_Config</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1ac724e431d2af879252de35615be2bdea"><span></span><span class="n">MX_GPIO_Init</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1acccd58aa70215a6b184ad242312ffd0c"><span></span><span class="n">MX_ADC1_Init</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1a4b8ff887fd3fdf26605e35927e4ff202"><span></span><span class="n">MX_TIM2_Init</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1a7912f2916786a2c33cb6fb8259ade58c"><span></span><span class="n">MX_TIM3_Init</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1a57d1167735baafab8e3288526c424929"><span></span><span class="n">MX_USART1_UART_Init</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1ae70bce6c39d0b570a7523b86738cec4b"><span></span><span class="n">HAL_TIM_MspPostInit</span></span><span></span><span class="p">(</span><span class="n">TIM_HandleTypeDef</span><span class="o">*</span> <span class="n">htim</span><span class="p">);</span>
+<span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-initialization-8h-1a1730ffe1e560465665eb47d9264826f9"><span></span><span class="n">Error_Handler</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="c1">// macros</span>
+
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a266426cb99ba0e1152057d94c81a49fe"><span></span><span class="n">LED1_EN_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a4e7f329f812b94bafcb59ebf94e78edc"><span></span><span class="n">LED1_EN_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a23df1d543277409a133d05820d15b064"><span></span><span class="n">LED2_EN_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a3e0edc0ed806ae00dc2ddf2550ecef22"><span></span><span class="n">LED2_EN_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a3deebfde040813fd99114f0f6cec9e67"><span></span><span class="n">LED3_EN_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a84fe5ab2a52fa39edc1124a70787d7b2"><span></span><span class="n">LED3_EN_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1ab7ccad866af018c5cb70ebe77b9ca6a8"><span></span><span class="n">LED4_EN_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1aa461f941a77998f0bacad4b0e4559270"><span></span><span class="n">LED4_EN_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a58e38f53db9754bf482d85367278d98f"><span></span><span class="n">SERVO1_GPIO_PORT</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1aac0bdbf4505ba2f29838b2eda7e3c44f"><span></span><span class="n">SERVO1_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1af63c4620aebc92fdf387a5bc24e793b2"><span></span><span class="n">SERVO2_GPIO_PORT</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1ac223741241827ab45171644f0b7b2233"><span></span><span class="n">SERVO2_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1aff2e21a956eae4f40c023f67a4b765e0"><span></span><span class="n">SOLENOID_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1afa690de60973a6e087efd53041608560"><span></span><span class="n">SOLENOID_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1aeb3fa61797bb77f2286c8eb800fecf0d"><span></span><span class="n">SPARE_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1aac922be9e80814612977044d1052d734"><span></span><span class="n">SPARE_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1ab371b0de9a4ffa7356b348e25974c1d7"><span></span><span class="n">SUCTION_EN_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a48720f7848e1cb3fdbfc285f85f2dcfa"><span></span><span class="n">SUCTION_EN_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a137a38ea9ef47c0147d21cdf5c17cd24"><span></span><span class="n">SUCTION_PWM_GPIO_Port</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a2bd0e87a032a81aeafb14aaa42941bf2"><span></span><span class="n">SUCTION_PWM_Pin</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1ab5bada3dd08ff21f5a7b653aa14def51"><span></span><span class="n">TIM2_PERIOD</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1aa14aa5e07006c79ab792b31b3aa577b0"><span></span><span class="n">TIM2_PRESCALER</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a440b2369d97666f7dd55447dc6085121"><span></span><span class="n">TIM3_PERIOD</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1ac28328eb2fcbc6222c3225258fee9cdb"><span></span><span class="n">TIM3_PRESCALER</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a3b7d0f8eacf648cff90de9b3468c5688"><span></span><span class="n">USARTx_DMA_TX_IRQn</span></span><span></span>
+<span class="cp">#define </span><span class="doxyrest-code-target target" id="doxid-initialization-8h-1a839ca0a7c0b73cbf8399d286a0b1eeae"><span></span><span class="n">USARTx_TX_DMA_CHANNEL</span></span></pre>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

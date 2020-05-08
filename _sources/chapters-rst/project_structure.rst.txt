@@ -1,0 +1,65 @@
+=================
+Project Structure
+=================
+The project tree below outlines the files that were added or modified in the development process. The project is organized according to STM CubeMX code generation tool. Any files that were were imported as STM Libraries and were not modified in the development process are omitted in the following tree.
+
+File Tree
+=========
+
+.. code-block:: shell
+    
+    ├── .vscode/
+    │   └── launch.json		    ## VSCode Build and Debug Configuration.
+    │
+    ├── CMakeLists.txt              ## CMake build configuration.
+    │
+    ├── Drivers/
+    │   ├── CMSIS/                  ## STM CMSIS drivers.
+    │   └── STM32F1xx_HAL_Driver/   ## STM Peripheral drivers.
+    │
+    ├── Inc/
+    │   ├── CommandParser.h         ## Command Parser class declaration.
+    │   ├── CommandQueue.h          ## Flow control implementation used in USB Queue.
+    │   ├── FaulhaberComm.h         ## Faulhaber Communication class declaration.
+    │   ├── HardwareDriver.h        ## Command Handlers namespace declaration.
+    │   ├── Solenoid.h              ## Solenoid class declaration.
+    │   ├── UsbComm.h               ## Usb communication helper class declaration.   
+    │   ├── initialization.h        ## Initialization functions declaration.
+    │   └── stm32f1xx_it.h          ## Interrupt handlers declaration.
+    │
+    ├── Middlewares/                ## Contains STM USB Communication Class Driver.
+    │
+    ├── README.md                   ## Git readme.
+    ├── STM32F103C8Tx_FLASH.ld      ## Loader script.
+    │
+    ├── Src/
+    │   ├── CommandParser.cpp       ## Command Parser class implementation.
+    │   ├── FaulhaberComm.cpp       ## Faulhaber Communication class implementation.
+    │   ├── HardwareDriver.cpp      ## Command Handlers namespace implementationxs.
+    │   ├── Solenoid.cpp            ## Solenoid class implementationxs.
+    │   ├── UsbComm.cpp             ## Usb communication helper class implementationxs.
+    │   ├── initialization.cpp      ## Initialization functions implementation.
+    │   ├── main.cpp                ## Main function.
+    │   ├── stm32f1xx_it.cpp        ## Interrupt handlers implementation.
+    │   └── usbd_cdc_if.cpp         ## Usb interface functions.
+    │
+    ├── startup/            ## Startup code.
+    │
+    ├── stm32f103c8t6.svd           ## CMSIS Peripheral Address Map (for debugging).
+    └── windrider.ioc               ## Template STM CubeMX project configuration.
+
+Class Tree
+==========
+
+Here are the classes, namespaces, and interfaces with brief descriptions:
+
+.. toctree::
+   :maxdepth: 1
+   
+   ../doxyrest-rst/class_CommandQueue
+   ../doxyrest-rst/namespace_CommandParser
+   ../doxyrest-rst/class_CommandParser_Cmd
+   ../doxyrest-rst/class_UsbComm
+   ../doxyrest-rst/class_Solenoid
+   ../doxyrest-rst/namespace_HardwareDriver
+

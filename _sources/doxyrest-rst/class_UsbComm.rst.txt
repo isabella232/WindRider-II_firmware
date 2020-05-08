@@ -1,0 +1,67 @@
+.. index:: pair: class; UsbComm
+.. _doxid-class_usb_comm:
+
+class UsbComm
+=============
+
+.. toctree::
+	:hidden:
+
+Overview
+~~~~~~~~
+
+class :ref:`UsbComm <doxid-class_usb_comm>` :ref:`More...<details-class_usb_comm>`
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	#include <UsbComm.h>
+	
+	class UsbComm
+	{
+	public:
+		// fields
+	
+		static :ref:`CommandQueue<doxid-class_command_queue>`<std::string, '\r'> :target:`usb_queue<doxid-class_usb_comm_1a8098e5029d4e748f42a72d64f83c73fa>`;
+
+		// methods
+	
+		static void :ref:`usb_send<doxid-class_usb_comm_1a20d2c717a82e1ad379791d9dd72276dd>`(const std::string* str_to_send);
+	};
+.. _details-class_usb_comm:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+class :ref:`UsbComm <doxid-class_usb_comm>`
+
+A helper class to handle usb cdc communication.
+
+Methods
+-------
+
+.. index:: pair: function; usb_send
+.. _doxid-class_usb_comm_1a20d2c717a82e1ad379791d9dd72276dd:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void usb_send(const std::string* str_to_send)
+
+printf implementation
+
+This function sends a string over USB virtual com port.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- str_to_send
+
+		- Pointer to the string to be sent.
+

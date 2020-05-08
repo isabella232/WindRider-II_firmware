@@ -1,0 +1,142 @@
+.. index:: pair: namespace; HardwareDriver
+.. _doxid-namespace_hardware_driver:
+
+namespace HardwareDriver
+========================
+
+.. toctree::
+	:hidden:
+
+Overview
+~~~~~~~~
+
+
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	
+	namespace HardwareDriver {
+
+	// global variables
+
+	const std::string :target:`response_ok<doxid-namespace_hardware_driver_1a3387ce09bab4a1548f9960cdc55cb3b6>` = "ok\n\r";
+	const std::string :target:`invalid_argument<doxid-namespace_hardware_driver_1a4b8e85790964506614c68ff779775847>` = "invalid argument\n\r";
+	const std::string :target:`arguments_out_of_range<doxid-namespace_hardware_driver_1a60607cc5aab9ecba956ddeb694cd6203>` = "arguments out of range\n\r";
+	const std::string :target:`error_reset<doxid-namespace_hardware_driver_1a9980b088938fe6fc7687bcc040960048>` = "Runtime error! Reset required!\n\r";
+
+	// global functions
+
+	const std::string :ref:`get_status<doxid-namespace_hardware_driver_1acf7f792779a8fc4160e21dc615ebb89c>`(void);
+	void :target:`initialize<doxid-namespace_hardware_driver_1ab48d7907d65e83116f96abc923e529dc>`(void);
+	void :ref:`servo_angle<doxid-namespace_hardware_driver_1ab3444d48a6345171ae311435c7e871c4>`(std::string arg);
+	void :ref:`suction_power<doxid-namespace_hardware_driver_1acd1818b4d882f28fc4112e2ff71ae0f0>`(std::string arg);
+	void :target:`solenoid<doxid-namespace_hardware_driver_1a2519191fb77799999026499792429f86>`(std::string arg);
+	void :target:`led<doxid-namespace_hardware_driver_1a93140e42174c951eae3173366390009c>`(std::string arg);
+	void :target:`suction_current<doxid-namespace_hardware_driver_1ad1a36e6268181c39a2d98cf51bfa7490>`(std::string arg);
+	void :target:`uart<doxid-namespace_hardware_driver_1a3cf2d389d7466ca55a51f703045c461b>`(std::string arg);
+	void :target:`left<doxid-namespace_hardware_driver_1a9d74fb2471355873c90e74335c7f0025>`(std::string arg);
+	void :target:`right<doxid-namespace_hardware_driver_1a0b517274876c0686c8e50c368b96659e>`(std::string arg);
+	void :target:`straight<doxid-namespace_hardware_driver_1ab89ea22a49c90238f3e1b0be7502d11d>`(std::string arg);
+	void :ref:`error<doxid-namespace_hardware_driver_1afd8993e4d50ce70565516f0165a117c5>`(const std::string error);
+
+	} // namespace HardwareDriver
+.. _details-namespace_hardware_driver:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Global Functions
+----------------
+
+.. index:: pair: function; get_status
+.. _doxid-namespace_hardware_driver_1acf7f792779a8fc4160e21dc615ebb89c:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	const std::string get_status(void)
+
+method get_status
+
+
+
+.. rubric:: Returns:
+
+status from execution of the previous command..
+
+.. index:: pair: function; servo_angle
+.. _doxid-namespace_hardware_driver_1ab3444d48a6345171ae311435c7e871c4:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void servo_angle(std::string arg)
+
+method servo_angle
+
+Handler for servo command. Sets servo to a given angle.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- arg
+
+		- Argument string. Comes after token.
+
+.. index:: pair: function; suction_power
+.. _doxid-namespace_hardware_driver_1acd1818b4d882f28fc4112e2ff71ae0f0:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void suction_power(std::string arg)
+
+method suction_power
+
+Handler for suction command. Adjusts suction power [0-100]
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- arg
+
+		- Argument string. Comes after token.
+
+.. index:: pair: function; error
+.. _doxid-namespace_hardware_driver_1afd8993e4d50ce70565516f0165a117c5:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void error(const std::string error)
+
+method error
+
+Used to troubleshoot errors that potentially cause hard faults. Kills/Resets the microcontroller.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- error
+
+		- Prints the content before killing execution.
+

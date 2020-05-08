@@ -1,0 +1,78 @@
+.. _global:
+.. index:: pair: namespace; global
+
+Global Namespace
+================
+
+.. toctree::
+	:hidden:
+
+	namespace_CommandParser.rst
+	namespace_HardwareDriver.rst
+	class_CommandQueue.rst
+	class_FaulhaberComm.rst
+	class_Solenoid.rst
+	class_UsbComm.rst
+
+
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	
+	// namespaces
+
+	namespace :ref:`CommandParser<doxid-namespace_command_parser>`;
+	namespace :ref:`HardwareDriver<doxid-namespace_hardware_driver>`;
+
+	// classes
+
+	template <class Container, typename Container::value_type control_element>
+	class :ref:`CommandQueue<doxid-class_command_queue>`;
+
+	class :ref:`FaulhaberComm<doxid-class_faulhaber_comm>`;
+	class :ref:`Solenoid<doxid-class_solenoid>`;
+	class :ref:`UsbComm<doxid-class_usb_comm>`;
+
+	// global functions
+
+	void :target:`Initialize_Peripherals<doxid-initialization_8h_1ac44620ac8c24a860cc733a73d8f9882a>`(void);
+	void :target:`SystemClock_Config<doxid-initialization_8h_1a70af21c671abfcc773614a9a4f63d920>`(void);
+	void :target:`MX_GPIO_Init<doxid-initialization_8h_1ac724e431d2af879252de35615be2bdea>`(void);
+	void :target:`MX_ADC1_Init<doxid-initialization_8h_1acccd58aa70215a6b184ad242312ffd0c>`(void);
+	void :target:`MX_TIM2_Init<doxid-initialization_8h_1a4b8ff887fd3fdf26605e35927e4ff202>`(void);
+	void :target:`MX_TIM3_Init<doxid-initialization_8h_1a7912f2916786a2c33cb6fb8259ade58c>`(void);
+	void :target:`MX_USART1_UART_Init<doxid-initialization_8h_1a57d1167735baafab8e3288526c424929>`(void);
+	void :target:`HAL_TIM_MspPostInit<doxid-initialization_8h_1ae70bce6c39d0b570a7523b86738cec4b>`(TIM_HandleTypeDef* htim);
+	void :target:`Error_Handler<doxid-initialization_8h_1a1730ffe1e560465665eb47d9264826f9>`(void);
+
+	// macros
+
+	#define :target:`LED1_EN_GPIO_Port<doxid-initialization_8h_1a266426cb99ba0e1152057d94c81a49fe>`
+	#define :target:`LED1_EN_Pin<doxid-initialization_8h_1a4e7f329f812b94bafcb59ebf94e78edc>`
+	#define :target:`LED2_EN_GPIO_Port<doxid-initialization_8h_1a23df1d543277409a133d05820d15b064>`
+	#define :target:`LED2_EN_Pin<doxid-initialization_8h_1a3e0edc0ed806ae00dc2ddf2550ecef22>`
+	#define :target:`LED3_EN_GPIO_Port<doxid-initialization_8h_1a3deebfde040813fd99114f0f6cec9e67>`
+	#define :target:`LED3_EN_Pin<doxid-initialization_8h_1a84fe5ab2a52fa39edc1124a70787d7b2>`
+	#define :target:`LED4_EN_GPIO_Port<doxid-initialization_8h_1ab7ccad866af018c5cb70ebe77b9ca6a8>`
+	#define :target:`LED4_EN_Pin<doxid-initialization_8h_1aa461f941a77998f0bacad4b0e4559270>`
+	#define :target:`SERVO1_GPIO_PORT<doxid-initialization_8h_1a58e38f53db9754bf482d85367278d98f>`
+	#define :target:`SERVO1_Pin<doxid-initialization_8h_1aac0bdbf4505ba2f29838b2eda7e3c44f>`
+	#define :target:`SERVO2_GPIO_PORT<doxid-initialization_8h_1af63c4620aebc92fdf387a5bc24e793b2>`
+	#define :target:`SERVO2_Pin<doxid-initialization_8h_1ac223741241827ab45171644f0b7b2233>`
+	#define :target:`SOLENOID_GPIO_Port<doxid-initialization_8h_1aff2e21a956eae4f40c023f67a4b765e0>`
+	#define :target:`SOLENOID_Pin<doxid-initialization_8h_1afa690de60973a6e087efd53041608560>`
+	#define :target:`SPARE_GPIO_Port<doxid-initialization_8h_1aeb3fa61797bb77f2286c8eb800fecf0d>`
+	#define :target:`SPARE_Pin<doxid-initialization_8h_1aac922be9e80814612977044d1052d734>`
+	#define :target:`SUCTION_EN_GPIO_Port<doxid-initialization_8h_1ab371b0de9a4ffa7356b348e25974c1d7>`
+	#define :target:`SUCTION_EN_Pin<doxid-initialization_8h_1a48720f7848e1cb3fdbfc285f85f2dcfa>`
+	#define :target:`SUCTION_PWM_GPIO_Port<doxid-initialization_8h_1a137a38ea9ef47c0147d21cdf5c17cd24>`
+	#define :target:`SUCTION_PWM_Pin<doxid-initialization_8h_1a2bd0e87a032a81aeafb14aaa42941bf2>`
+	#define :target:`TIM2_PERIOD<doxid-initialization_8h_1ab5bada3dd08ff21f5a7b653aa14def51>`
+	#define :target:`TIM2_PRESCALER<doxid-initialization_8h_1aa14aa5e07006c79ab792b31b3aa577b0>`
+	#define :target:`TIM3_PERIOD<doxid-initialization_8h_1a440b2369d97666f7dd55447dc6085121>`
+	#define :target:`TIM3_PRESCALER<doxid-initialization_8h_1ac28328eb2fcbc6222c3225258fee9cdb>`
+	#define :target:`USARTx_DMA_TX_IRQn<doxid-initialization_8h_1a3b7d0f8eacf648cff90de9b3468c5688>`
+	#define :target:`USARTx_TX_DMA_CHANNEL<doxid-initialization_8h_1a839ca0a7c0b73cbf8399d286a0b1eeae>`
+

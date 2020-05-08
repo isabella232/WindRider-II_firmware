@@ -1,0 +1,86 @@
+.. index:: pair: namespace; CommandParser
+.. _doxid-namespace_command_parser:
+
+namespace CommandParser
+=======================
+
+.. toctree::
+	:hidden:
+
+	class_CommandParser_Cmd.rst
+
+Overview
+~~~~~~~~
+
+
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	
+	namespace CommandParser {
+
+	// classes
+
+	class :ref:`Cmd<doxid-class_command_parser_1_1_cmd>`;
+
+	// global variables
+
+	const std::string :target:`unknown_command<doxid-namespace_command_parser_1a3f4e11aa2a5d97da7d78ea1169647a8a>` = "unknown command\n\r";
+	const std::string :target:`invalid_command<doxid-namespace_command_parser_1a2bebf744dc69d3d39df385831ff07f09>` = "invalid command enter '?' for help\n\r";
+	const std::string :target:`help<doxid-namespace_command_parser_1a47e203a85bbd93706cf061075f2ba643>` = "CCNY Robotics Lab Welcomes You, human..\n\r";
+
+	// global functions
+
+	const std::string :ref:`execute<doxid-namespace_command_parser_1add35124270539e09f76eb736fb01cf71>`(const std::string& command);
+
+	} // namespace CommandParser
+.. _details-namespace_command_parser:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Global Functions
+----------------
+
+.. index:: pair: function; execute
+.. _doxid-namespace_command_parser_1add35124270539e09f76eb736fb01cf71:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	const std::string execute(const std::string& command)
+
+Execute method.
+
+This method processes a raw received command.
+
+#. Seperate token and space seperated args from the raw command.
+
+#. Lookup the token in the command table.
+
+#. In case the token exists in the table, execute the corresponding commnad handler passin the space seperated argument.
+
+#. Return a status string.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- arg
+
+		- Raw command to execute as received from host.
+
+
+
+.. rubric:: Returns:
+
+Status string.
+

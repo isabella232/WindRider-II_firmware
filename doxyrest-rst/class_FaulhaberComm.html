@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>class FaulhaberComm &mdash; WindRider  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/target-highlight.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> WindRider
+          
+
+          
+            
+            <img src="../_static/robot.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/build_and_flash.html">Build and Flash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/code_flow.html">Code Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters-rst/command_table.html">Command Table</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">WindRider</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>class FaulhaberComm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/doxyrest-rst/class_FaulhaberComm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-faulhabercomm">
+<span id="doxid-class-faulhaber-comm"></span><span id="index-0"></span><h1>class FaulhaberComm<a class="headerlink" href="#class-faulhabercomm" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Class <a class="reference internal" href="#doxid-class-faulhaber-comm"><span class="std std-ref">FaulhaberComm</span></a>. <a class="reference internal" href="#details-class-faulhaber-comm"><span class="std std-ref">More…</span></a></p>
+<pre class="highlight doxyrest-overview-code-block literal-block"><span></span><span class="cp">#include</span> <span class="cpf">&lt;FaulhaberComm.h&gt;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="n">FaulhaberComm</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// fields</span>
+
+    <span class="k">static</span> <a class="reference internal" href="class_CommandQueue.html#doxid-class-command-queue"><span class="std std-ref">CommandQueue</span></a><span></span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="sc">&#39;</span><span class="se">\r</span><span class="sc">&#39;</span><span class="o">&gt;</span> <span class="doxyrest-code-target target" id="doxid-class-faulhaber-comm-1a9753118257b38838cc818792297f7a66"><span></span><span class="n">feedback_queue</span></span><span></span><span class="p">;</span>
+
+    <span class="c1">// construction</span>
+
+    <a class="reference internal" href="#doxid-class-faulhaber-comm-1aeebe099a7eb59e7182a11126a7fa9746"><span class="std std-ref">FaulhaberComm</span></a><span></span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">addr</span><span class="p">);</span>
+
+    <span class="c1">// methods</span>
+
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a8866c256403bd573dbbf0bda7537f7e1"><span class="std std-ref">write_and_return</span></a><span></span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cmd</span><span class="p">);</span>
+    <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a0ec7b2870118a36b2d9d1eb7b7994a5a"><span class="std std-ref">write_and_confirm</span></a><span></span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cmd</span><span class="p">);</span>
+    <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a4b315d9bb4595dc5ba9280b8bb4fd341"><span class="std std-ref">configure_motor_driver</span></a><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1aaccc9cd5a552597ec1a402aeadaa23cb"><span class="std std-ref">set_velocity</span></a><span></span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">velocity</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a11f577b56781fdbfb43be32799987d07"><span class="std std-ref">initialize_hardware</span></a><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a2a6c17fc4ae842afaf98b22bcd9fdf00"><span class="std std-ref">send</span></a><span></span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">string</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a99b5338552f466382f1d1538135b4340"><span class="std std-ref">write_sync</span></a><span></span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">string</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1af91665b2be2adc6e4b996af807694e88"><span class="std std-ref">process_feedback</span></a><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a02ce0181d9ab137838defd05a504e5a5"><span class="std std-ref">enable_forwarding</span></a><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a2615bd05f94b7f6e3fc3ceb4b53c8ce3"><span class="std std-ref">disable_forwarding</span></a><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1acd3b155a1b3d3fd0fb6939b49ae73809"><span class="std std-ref">forward_reply</span></a><span></span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">reply</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="doxyrest-code-target target" id="doxid-class-faulhaber-comm-1a4a7ed322845cbb2c0b996be320c6524f"><span></span><span class="n">reset_receive_buffer</span></span><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="k">static</span> <span class="n">UART_HandleTypeDef</span><span class="o">*</span> <a class="reference internal" href="#doxid-class-faulhaber-comm-1a814a607e80422a3a188ce550e0ed619f"><span class="std std-ref">get_uart_handle</span></a><span></span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="p">};</span></pre>
+</div>
+<div class="section" id="detailed-documentation">
+<span id="details-class-faulhaber-comm"></span><h2>Detailed Documentation<a class="headerlink" href="#detailed-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Class <a class="reference internal" href="#doxid-class-faulhaber-comm"><span class="std std-ref">FaulhaberComm</span></a>.</p>
+<p>This helper class serves as an abstraction layer for communication with Faulhaber motor drivers. An object of this class represents a seperate motor driver on rs-232 network.</p>
+<div class="section" id="construction">
+<h3>Construction<a class="headerlink" href="#construction" title="Permalink to this headline">¶</a></h3>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1aeebe099a7eb59e7182a11126a7fa9746"><span id="index-1"></span><span></span><span class="n">FaulhaberComm</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">addr</span><span class="p">)</span></pre>
+<p>Default <a class="reference internal" href="#doxid-class-faulhaber-comm"><span class="std std-ref">FaulhaberComm</span></a> constructor.</p>
+<p>The default constructor. <a class="reference internal" href="#doxid-class-faulhaber-comm-1a11f577b56781fdbfb43be32799987d07"><span class="std std-ref">initialize_hardware()</span></a> must be called after core mcu initialization.</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>addr</p></td>
+<td><p>Address of the initialized motor driver.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a8866c256403bd573dbbf0bda7537f7e1"><span id="index-2"></span><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">write_and_return</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cmd</span><span class="p">)</span></pre>
+<p>write_and_return function.</p>
+<p>Write and wait for a terminated reply in blocking mode.</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>cmd</p></td>
+<td><p>String to write.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Returns:</p>
+<p>reply.</p>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a0ec7b2870118a36b2d9d1eb7b7994a5a"><span id="index-3"></span><span></span><span class="kt">void</span> <span class="n">write_and_confirm</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cmd</span><span class="p">)</span></pre>
+<p>method write_and_confirm.</p>
+<p>Write and wait for acknowledgment.</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>cmd</p></td>
+<td><p>String to write.</p></td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a4b315d9bb4595dc5ba9280b8bb4fd341"><span id="index-4"></span><span></span><span class="kt">void</span> <span class="n">configure_motor_driver</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></pre>
+<p>configure_motor_driver method.</p>
+<p>Load default motor driver configuration.</p>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1aaccc9cd5a552597ec1a402aeadaa23cb"><span id="index-5"></span><span></span><span class="kt">void</span> <span class="n">set_velocity</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">velocity</span><span class="p">)</span></pre>
+<p>set_velocity method.</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>velocity</p></td>
+<td><p>Set velocity.</p></td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a11f577b56781fdbfb43be32799987d07"><span id="index-6"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">initialize_hardware</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></pre>
+<p>initialize_hardware method.</p>
+<p>Initializes the dedicated communication pheripheral (e.g. uartrs-232), then calls <a class="reference internal" href="#doxid-class-faulhaber-comm-1a4b315d9bb4595dc5ba9280b8bb4fd341"><span class="std std-ref">configure_motor_driver()</span></a> for each instantiated motor driver object.</p>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a2a6c17fc4ae842afaf98b22bcd9fdf00"><span id="index-7"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">send</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">string</span><span class="p">)</span></pre>
+<p>send method.</p>
+<p>A helper hardware abstraction method, sends a string via the dedicated communication pheripheral (e.g. uartrs-232).</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>string</p></td>
+<td><p>String to send.</p></td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a99b5338552f466382f1d1538135b4340"><span id="index-8"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">write_sync</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">string</span><span class="p">)</span></pre>
+<p>write_sync method.</p>
+<p>Sends a command to both motors simmultaneously by temprorarily disabling asynchronous responses.</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>string</p></td>
+<td><p>String to send.</p></td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1af91665b2be2adc6e4b996af807694e88"><span id="index-9"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">process_feedback</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></pre>
+<p>process_feedback method.</p>
+<p>Called from the main loop to force print every terminated line received by uart. Used for debugging. Deletes the command form the queue after printing. Call write_and_return for normal operation.</p>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a02ce0181d9ab137838defd05a504e5a5"><span id="index-10"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">enable_forwarding</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></pre>
+<p>method enable_forwarding</p>
+<p>After calling this functions every line received by uart is printed. Sets _forwarding flag.</p>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a2615bd05f94b7f6e3fc3ceb4b53c8ce3"><span id="index-11"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">disable_forwarding</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></pre>
+<p>method disable_forwarding</p>
+<p>Disables the action of enable_forwarding. Resets _forwarding flag.</p>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1acd3b155a1b3d3fd0fb6939b49ae73809"><span id="index-12"></span><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">forward_reply</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">reply</span><span class="p">)</span></pre>
+<p>method forward_reply</p>
+<p>Forwards/Prints uart replies.</p>
+<p class="rubric">Parameters:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>reply</p></td>
+<td><p>String to print.</p></td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight doxyrest-title-code-block literal-block" id="doxid-class-faulhaber-comm-1a814a607e80422a3a188ce550e0ed619f"><span id="index-13"></span><span></span><span class="k">static</span> <span class="n">UART_HandleTypeDef</span><span class="o">*</span> <span class="n">get_uart_handle</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span></pre>
+<p>get_uart_handle method.</p>
+<p>Pass on uart handle to the STM HALibrary. Used in the interrupt handlers.</p>
+<p class="rubric">Returns:</p>
+<p>Handle to the uart instance.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

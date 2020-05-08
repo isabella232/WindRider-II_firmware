@@ -1,0 +1,312 @@
+.. index:: pair: class; FaulhaberComm
+.. _doxid-class_faulhaber_comm:
+
+class FaulhaberComm
+===================
+
+.. toctree::
+	:hidden:
+
+Overview
+~~~~~~~~
+
+Class :ref:`FaulhaberComm <doxid-class_faulhaber_comm>`. :ref:`More...<details-class_faulhaber_comm>`
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	#include <FaulhaberComm.h>
+	
+	class FaulhaberComm
+	{
+	public:
+		// fields
+	
+		static :ref:`CommandQueue<doxid-class_command_queue>`<std::string, '\r'> :target:`feedback_queue<doxid-class_faulhaber_comm_1a9753118257b38838cc818792297f7a66>`;
+
+		// construction
+	
+		:ref:`FaulhaberComm<doxid-class_faulhaber_comm_1aeebe099a7eb59e7182a11126a7fa9746>`(const uint8_t addr);
+
+		// methods
+	
+		const std::string :ref:`write_and_return<doxid-class_faulhaber_comm_1a8866c256403bd573dbbf0bda7537f7e1>`(std::string cmd);
+		void :ref:`write_and_confirm<doxid-class_faulhaber_comm_1a0ec7b2870118a36b2d9d1eb7b7994a5a>`(std::string cmd);
+		void :ref:`configure_motor_driver<doxid-class_faulhaber_comm_1a4b315d9bb4595dc5ba9280b8bb4fd341>`(void);
+		void :ref:`set_velocity<doxid-class_faulhaber_comm_1aaccc9cd5a552597ec1a402aeadaa23cb>`(uint16_t velocity);
+		static void :ref:`initialize_hardware<doxid-class_faulhaber_comm_1a11f577b56781fdbfb43be32799987d07>`(void);
+		static void :ref:`send<doxid-class_faulhaber_comm_1a2a6c17fc4ae842afaf98b22bcd9fdf00>`(std::string string);
+		static void :ref:`write_sync<doxid-class_faulhaber_comm_1a99b5338552f466382f1d1538135b4340>`(std::string string);
+		static void :ref:`process_feedback<doxid-class_faulhaber_comm_1af91665b2be2adc6e4b996af807694e88>`(void);
+		static void :ref:`enable_forwarding<doxid-class_faulhaber_comm_1a02ce0181d9ab137838defd05a504e5a5>`(void);
+		static void :ref:`disable_forwarding<doxid-class_faulhaber_comm_1a2615bd05f94b7f6e3fc3ceb4b53c8ce3>`(void);
+		static void :ref:`forward_reply<doxid-class_faulhaber_comm_1acd3b155a1b3d3fd0fb6939b49ae73809>`(const std::string reply);
+		static void :target:`reset_receive_buffer<doxid-class_faulhaber_comm_1a4a7ed322845cbb2c0b996be320c6524f>`(void);
+		static UART_HandleTypeDef* :ref:`get_uart_handle<doxid-class_faulhaber_comm_1a814a607e80422a3a188ce550e0ed619f>`(void);
+	};
+.. _details-class_faulhaber_comm:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+Class :ref:`FaulhaberComm <doxid-class_faulhaber_comm>`.
+
+This helper class serves as an abstraction layer for communication with Faulhaber motor drivers. An object of this class represents a seperate motor driver on rs-232 network.
+
+Construction
+------------
+
+.. index:: pair: function; FaulhaberComm
+.. _doxid-class_faulhaber_comm_1aeebe099a7eb59e7182a11126a7fa9746:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	FaulhaberComm(const uint8_t addr)
+
+Default :ref:`FaulhaberComm <doxid-class_faulhaber_comm>` constructor.
+
+The default constructor. :ref:`initialize_hardware() <doxid-class_faulhaber_comm_1a11f577b56781fdbfb43be32799987d07>` must be called after core mcu initialization.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- addr
+
+		- Address of the initialized motor driver.
+
+Methods
+-------
+
+.. index:: pair: function; write_and_return
+.. _doxid-class_faulhaber_comm_1a8866c256403bd573dbbf0bda7537f7e1:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	const std::string write_and_return(std::string cmd)
+
+write_and_return function.
+
+Write and wait for a terminated reply in blocking mode.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- cmd
+
+		- String to write.
+
+
+
+.. rubric:: Returns:
+
+reply.
+
+.. index:: pair: function; write_and_confirm
+.. _doxid-class_faulhaber_comm_1a0ec7b2870118a36b2d9d1eb7b7994a5a:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void write_and_confirm(std::string cmd)
+
+method write_and_confirm.
+
+Write and wait for acknowledgment.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- cmd
+
+		- String to write.
+
+.. index:: pair: function; configure_motor_driver
+.. _doxid-class_faulhaber_comm_1a4b315d9bb4595dc5ba9280b8bb4fd341:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void configure_motor_driver(void)
+
+configure_motor_driver method.
+
+Load default motor driver configuration.
+
+.. index:: pair: function; set_velocity
+.. _doxid-class_faulhaber_comm_1aaccc9cd5a552597ec1a402aeadaa23cb:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void set_velocity(uint16_t velocity)
+
+set_velocity method.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- velocity
+
+		- Set velocity.
+
+.. index:: pair: function; initialize_hardware
+.. _doxid-class_faulhaber_comm_1a11f577b56781fdbfb43be32799987d07:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void initialize_hardware(void)
+
+initialize_hardware method.
+
+Initializes the dedicated communication pheripheral (e.g. uart\rs-232), then calls :ref:`configure_motor_driver() <doxid-class_faulhaber_comm_1a4b315d9bb4595dc5ba9280b8bb4fd341>` for each instantiated motor driver object.
+
+.. index:: pair: function; send
+.. _doxid-class_faulhaber_comm_1a2a6c17fc4ae842afaf98b22bcd9fdf00:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void send(std::string string)
+
+send method.
+
+A helper hardware abstraction method, sends a string via the dedicated communication pheripheral (e.g. uart\rs-232).
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- string
+
+		- String to send.
+
+.. index:: pair: function; write_sync
+.. _doxid-class_faulhaber_comm_1a99b5338552f466382f1d1538135b4340:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void write_sync(std::string string)
+
+write_sync method.
+
+Sends a command to both motors simmultaneously by temprorarily disabling asynchronous responses.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- string
+
+		- String to send.
+
+.. index:: pair: function; process_feedback
+.. _doxid-class_faulhaber_comm_1af91665b2be2adc6e4b996af807694e88:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void process_feedback(void)
+
+process_feedback method.
+
+Called from the main loop to force print every terminated line received by uart. Used for debugging. Deletes the command form the queue after printing. Call write_and_return for normal operation.
+
+.. index:: pair: function; enable_forwarding
+.. _doxid-class_faulhaber_comm_1a02ce0181d9ab137838defd05a504e5a5:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void enable_forwarding(void)
+
+method enable_forwarding
+
+After calling this functions every line received by uart is printed. Sets _forwarding flag.
+
+.. index:: pair: function; disable_forwarding
+.. _doxid-class_faulhaber_comm_1a2615bd05f94b7f6e3fc3ceb4b53c8ce3:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void disable_forwarding(void)
+
+method disable_forwarding
+
+Disables the action of enable_forwarding. Resets _forwarding flag.
+
+.. index:: pair: function; forward_reply
+.. _doxid-class_faulhaber_comm_1acd3b155a1b3d3fd0fb6939b49ae73809:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void forward_reply(const std::string reply)
+
+method forward_reply
+
+Forwards/Prints uart replies.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- reply
+
+		- String to print.
+
+.. index:: pair: function; get_uart_handle
+.. _doxid-class_faulhaber_comm_1a814a607e80422a3a188ce550e0ed619f:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static UART_HandleTypeDef* get_uart_handle(void)
+
+get_uart_handle method.
+
+Pass on uart handle to the STM HALibrary. Used in the interrupt handlers.
+
+
+
+.. rubric:: Returns:
+
+Handle to the uart instance.
+

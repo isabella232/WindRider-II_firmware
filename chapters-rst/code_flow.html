@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code Flow &mdash; WindRider  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/target-highlight.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command Table" href="command_table.html" />
+    <link rel="prev" title="namespace HardwareDriver" href="../doxyrest-rst/namespace_HardwareDriver.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> WindRider
+          
+
+          
+            
+            <img src="../_static/robot.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_and_flash.html">Build and Flash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-main-loop">The Main Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-processor">Command Processor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#behind-commandparser-execute">Behind <code class="docutils literal notranslate"><span class="pre">CommandParser::execute</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-table">Command Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usb-communication">USB Communication</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_table.html">Command Table</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">WindRider</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Code Flow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/chapters-rst/code_flow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="code-flow">
+<h1>Code Flow<a class="headerlink" href="#code-flow" title="Permalink to this headline">¶</a></h1>
+<p>At the top of the abstraction ladder, the project consists of two processes: USB
+Driver and Command Parser connected through a Command Queue.</p>
+<img alt="../_images/code_flow.png" src="../_images/code_flow.png" />
+<div class="section" id="the-main-loop">
+<h2>The Main Loop<a class="headerlink" href="#the-main-loop" title="Permalink to this headline">¶</a></h2>
+<p>USB Communication and Command Processor illustrated on the diagram above shake hands in the main loop. Strings stored in <code class="docutils literal notranslate"><span class="pre">UsbComm::usb_queue</span></code> are bing fed to the <code class="docutils literal notranslate"><span class="pre">CommandParser</span></code>, then <code class="docutils literal notranslate"><span class="pre">CommandParser</span></code> makes sense of the input and spits out a response, back to the <code class="docutils literal notranslate"><span class="pre">UsbComm</span></code>. Let’s take a closer look to what exactly happens.</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/main.cpp#L49">[view source]</a></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Infinite loop */</span>
+<span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// If there are commands in the usb queue -- execute them.</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">UsbComm</span><span class="o">::</span><span class="n">usb_queue</span><span class="p">.</span><span class="n">get_queue_size</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+
+      <span class="k">const</span> <span class="k">auto</span> <span class="n">response</span> <span class="o">=</span> <span class="n">CommandParser</span><span class="o">::</span><span class="n">execute</span><span class="p">(</span><span class="n">UsbComm</span><span class="o">::</span><span class="n">usb_queue</span><span class="p">.</span><span class="n">get_next_cmd</span><span class="p">());</span>
+
+      <span class="c1">// Respond to the command</span>
+      <span class="n">UsbComm</span><span class="o">::</span><span class="n">usb_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">response</span><span class="p">);</span>
+
+      <span class="c1">// Remove pending command from the queue</span>
+      <span class="n">UsbComm</span><span class="o">::</span><span class="n">usb_queue</span><span class="p">.</span><span class="n">free_pending_cmd</span><span class="p">();</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>In the snippet above, received commands are put into a queue elsewhere. Leave the reception details to the mysterious <code class="docutils literal notranslate"><span class="pre">UsbComm</span></code>. Suppose the <code class="docutils literal notranslate"><span class="pre">UsbComm::usb_queue.get_next_cmd()</span></code> returns <code class="docutils literal notranslate"><span class="pre">&quot;servo</span> <span class="pre">180&quot;</span></code>, which tells our microcontroller to set a servo to 180 degrees.</p>
+<p>Consider the following line:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="k">auto</span> <span class="n">response</span> <span class="o">=</span> <span class="n">CommandParser</span><span class="o">::</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;servo 180&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CommandParser::execute</span></code> searches the command table for a matching token (in this example token is <code class="docutils literal notranslate"><span class="pre">&quot;servo&quot;</span></code>). In case a match is found, the corresponding command handler is called. A substring of arguments (in this example <code class="docutils literal notranslate"><span class="pre">&quot;180&quot;</span></code>) that follow the token is then passed to the command handler function. Finally, a meaningful status is returned (<code class="docutils literal notranslate"><span class="pre">&quot;ok&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown</span> <span class="pre">command&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;invalid</span> <span class="pre">args&quot;</span></code>, etc..).</p>
+</div>
+<div class="section" id="command-processor">
+<h2>Command Processor<a class="headerlink" href="#command-processor" title="Permalink to this headline">¶</a></h2>
+<p>This section will shine light on what specifically happens inside <code class="docutils literal notranslate"><span class="pre">CommandParser::execute</span></code>, in other words, how do received commands get executed?</p>
+<div class="section" id="behind-commandparser-execute">
+<h3>Behind <code class="docutils literal notranslate"><span class="pre">CommandParser::execute</span></code><a class="headerlink" href="#behind-commandparser-execute" title="Permalink to this headline">¶</a></h3>
+<p>The following code shows implementation of <code class="docutils literal notranslate"><span class="pre">CommandParser::execute</span></code>. Make yourself comfortable with <a class="reference external" href="https://en.cppreference.com/w/cpp/algorithm">C++ Algorithms library</a>.</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/CommandParser.cpp#L27">[view source]</a></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">execute</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">command</span><span class="p">){</span>
+
+    <span class="c1">// Check if help requested.</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">command</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;?&#39;</span><span class="p">){</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">help_str</span> <span class="o">=</span> <span class="n">help</span><span class="p">;</span>
+
+        <span class="c1">// Return a string with all the tokens and help strings.</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">command_table</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                      <span class="n">command_table</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                      <span class="p">[</span><span class="o">&amp;</span><span class="n">help_str</span><span class="p">](</span><span class="k">const</span> <span class="n">Cmd</span> <span class="o">&amp;</span><span class="n">cmd_table_entry</span><span class="p">){</span>
+
+                          <span class="n">help_str</span> <span class="o">+=</span> <span class="n">cmd_table_entry</span><span class="p">.</span><span class="n">token</span><span class="p">;</span>
+                          <span class="n">help_str</span> <span class="o">+=</span> <span class="n">cmd_table_entry</span><span class="p">.</span><span class="n">help</span><span class="p">;</span>
+                          <span class="n">help_str</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n\r</span><span class="s">&quot;</span><span class="p">;</span>
+                      <span class="p">});</span>
+        <span class="n">help_str</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\r</span><span class="s">&quot;</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">help_str</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Find the first space to seperate a token.</span>
+    <span class="k">auto</span> <span class="n">separator</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">find_first_of</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">);</span>
+
+    <span class="c1">// If there is no space, assume command has no arguments.</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">separator</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+        <span class="n">separator</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">// Lookup the given token in the command table.</span>
+    <span class="c1">// In case found, returns a poiter to the corresponding command container.</span>
+    <span class="k">const</span> <span class="k">auto</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">command_table</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                                         <span class="n">command_table</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                                         <span class="p">[</span><span class="o">&amp;</span><span class="n">command</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">separator</span><span class="p">](</span><span class="k">const</span> <span class="n">Cmd</span> <span class="o">&amp;</span><span class="n">cmd_table_entry</span><span class="p">){</span>
+
+                                <span class="k">return</span> <span class="n">cmd_table_entry</span><span class="p">.</span><span class="n">token</span> <span class="o">==</span> <span class="n">command</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">separator</span><span class="p">);</span>
+                            <span class="p">});</span>
+
+    <span class="c1">// Check if given token exists in the command table.</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">executable</span> <span class="o">==</span> <span class="n">command_table</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">unknown_command</span><span class="p">;</span>
+
+    <span class="c1">// Execute the corresponding command from the table.</span>
+    <span class="n">executable</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">separator</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+
+    <span class="c1">// Return status of the executed command.</span>
+    <span class="k">return</span> <span class="n">HardwareDriver</span><span class="o">::</span><span class="n">get_status</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s break this down step-by-step.</p>
+<ol class="arabic simple">
+<li><p>Check if the first element in the string is <code class="docutils literal notranslate"><span class="pre">&quot;?&quot;</span></code>. In case it is - user requested help. For each command table entry print the token and the corresponding help string.</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In case help is requested, the function returns the entire content of the command table in a single string, it is not an issue as long as the table is relatively small, but potentially leads to an overflow.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>We need to break down the received string into a token and arguments. Look for the first occurrence of space character <code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code> and save it’s location into the variable <code class="docutils literal notranslate"><span class="pre">separator</span></code>. What if our command does not have arguments? Thus there is no space separator in the given string. In such case, set the separator to represent the last character in the string, which is always <code class="docutils literal notranslate"><span class="pre">&quot;NULL&quot;</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><p>Now, the token can be acquired by calling <code class="docutils literal notranslate"><span class="pre">command.substr(0,</span> <span class="pre">separator)</span></code>. The argument string consists of all the characters past the separator, or <code class="docutils literal notranslate"><span class="pre">command.substr(separator</span> <span class="pre">+</span> <span class="pre">1)</span></code></p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Find if the token in the received string exists in the table. In case it does, a call  to <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto</span> <span class="pre">executable</span> <span class="pre">=</span> <span class="pre">std::find_if(...)</span></code> returns a pointer to the object in the the table with the matching token. In case such token does not exist, <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto</span> <span class="pre">executable</span></code> points to the end of the command table.</p></li>
+<li><p>If the token was not found, exit the function returning <code class="docutils literal notranslate"><span class="pre">unknown_command</span></code> status.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check if given token exists in the command table.</span>
+<span class="k">if</span><span class="p">(</span><span class="n">executable</span> <span class="o">==</span> <span class="n">command_table</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">unknown_command</span><span class="p">;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>If we got to this point, the token exits in the table, let’s execute the corresponding command handler. Remember we saved the pointer to the corresponding entry in the command table. Each entry in this yet mysterious table is an object which encapsulates a token, a help string and a pointer to the handler function. This object has a helper method, which can be called to execute the handler function <code class="docutils literal notranslate"><span class="pre">object.execute(...)</span></code></p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Execute the corresponding command from the table.</span>
+<span class="n">executable</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">separator</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>We feed the argument string to the command handler letting it further parse the arguments.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An attentive reader might notice that passing a raw argument string to the command handler means that each command handler must have a similar routine to further parse the arguments. A <strong>better approach</strong> would be passing a vector of argument-strings while recursively separating the arguments within the <code class="docutils literal notranslate"><span class="pre">CommandParser::execute</span></code> function. Keep in mind, these argument-strings can represent both strings and numbers.</p>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Finally, return status. Why <code class="docutils literal notranslate"><span class="pre">HardwareDriver::get_status()</span></code>? All command handlers are part of the <code class="docutils literal notranslate"><span class="pre">namespace</span> <span class="pre">HardwareDriver</span></code>, where they share a status string.</p></li>
+</ol>
+</div>
+<div class="section" id="command-table">
+<h3>Command Table<a class="headerlink" href="#command-table" title="Permalink to this headline">¶</a></h3>
+<p>What underlying information do we need to know to execute a given command?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A <strong>Token</strong>, command’s first name.</p></li>
+<li><p><strong>Command Handler</strong>, what should the microcontroller do when the token is called.</p></li>
+<li><p>A <strong>Help String</strong>, would be nice to know what the command does.</p></li>
+</ul>
+</div></blockquote>
+<p>We can use a helper class to package all the info about each command. Take a look at <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">CommandParser::Cmd</span></code> declaration.</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/CommandParser.h#L21">[view source</a></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Command container class.</span>
+<span class="cm">/**</span>
+<span class="cm"> *  @brief This container is used to place commands into the command lookup table.</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="n">Cmd</span> <span class="p">{</span>
+
+    <span class="k">public</span><span class="o">:</span>
+
+    <span class="c1">//! Default Cmd constructor.</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @param token Command token used to call the specified command.</span>
+<span class="cm">     * @param help  Help string.</span>
+<span class="cm">     * @param cmd_handler Function to be executed when command with the token is called.</span>
+<span class="cm">     */</span>
+    <span class="n">Cmd</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">token</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">help</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">cmd_handler</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">token</span><span class="p">(</span><span class="n">token</span><span class="p">),</span><span class="n">help</span><span class="p">(</span><span class="n">help</span><span class="p">),</span><span class="n">cmd_handler</span><span class="p">(</span><span class="n">cmd_handler</span><span class="p">){};</span>
+
+    <span class="c1">//! execute method.</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Public method to call the command handler.</span>
+<span class="cm">     * @param arg Argument string passed to the command handler.</span>
+<span class="cm">     */</span>
+    <span class="kt">void</span> <span class="nf">execute</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">arg</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+
+        <span class="n">cmd_handler</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">token</span><span class="p">;</span> <span class="c1">// Command token.</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">help</span><span class="p">;</span> <span class="c1">// Help string.</span>
+
+    <span class="k">private</span><span class="o">:</span>
+
+    <span class="c1">// Command Handler function pointer.</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">cmd_handler</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Note how the constructor populates the only three constant members. There is a single method to call the command handler. The mysterious command table is an array of <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> objects.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Example below is simplified for illustration, the actual command table can be found <a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/CommandParser.cpp#L15">here</a>.</p>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Command table. Please keep alphabetical order.</span>
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Cmd</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">command_table</span> <span class="o">=</span> <span class="p">{</span>
+
+ <span class="n">Cmd</span><span class="p">(</span><span class="s">&quot;led&quot;</span><span class="p">,</span> <span class="s">&quot;set led power [0-100]%&quot;</span><span class="p">,</span> <span class="n">HardwareDriver</span><span class="o">::</span><span class="n">led</span><span class="p">),</span>
+ <span class="n">Cmd</span><span class="p">(</span><span class="s">&quot;servo&quot;</span><span class="p">,</span> <span class="s">&quot;set servo angle [0-180]deg&quot;</span><span class="p">,</span> <span class="n">HardwareDriver</span><span class="o">::</span><span class="n">servo</span><span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The table above initializes two entries with tokens <code class="docutils literal notranslate"><span class="pre">&quot;led&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;servo&quot;</span></code></p>
+</div>
+</div>
+<div class="section" id="usb-communication">
+<h2>USB Communication<a class="headerlink" href="#usb-communication" title="Permalink to this headline">¶</a></h2>
+<p>USB Communication Device Class, in short USB CDC or virtual com port is a <strong>Driver</strong> provided by STM to handle all aspects of USB communication the microcontroller is capable of. When connected to a host, the Driver emulates a <em>tty-like</em> device on a Unix system (<em>COM</em> device on Windows). The nature of the USB protocol and the Driver’s code itself are very sophisticated and will not be discussed in this manual. In fact, USB Driver takes up a significant amount of microcontroller’s flash, in our case about 30%. The Driver resembles a process which handles initialization, pinging, power management, packet wrapping, redundancy checks, etc.. on the background giving us callback-based interface to RX/TX capabilities, and connect, disconnect events. These callbacks reside in the following source file.</p>
+<p>Let’s take a look at the <strong>Receive</strong> callback function.</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/usbd_cdc_if.cpp#L249">[view source]</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span>  <span class="n">Data</span> <span class="n">received</span> <span class="n">over</span> <span class="n">USB</span> <span class="n">OUT</span> <span class="n">endpoint</span> <span class="n">are</span> <span class="n">sent</span> <span class="n">over</span> <span class="n">CDC</span> <span class="n">interface</span>
+ <span class="o">*</span>         <span class="n">through</span> <span class="n">this</span> <span class="n">function</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span>         <span class="nd">@note</span>
+ <span class="o">*</span>         <span class="n">This</span> <span class="n">function</span> <span class="n">will</span> <span class="n">block</span> <span class="nb">any</span> <span class="n">OUT</span> <span class="n">packet</span> <span class="n">reception</span> <span class="n">on</span> <span class="n">USB</span> <span class="n">endpoint</span>
+ <span class="o">*</span>         <span class="n">untill</span> <span class="n">exiting</span> <span class="n">this</span> <span class="n">function</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">exit</span> <span class="n">this</span> <span class="n">function</span> <span class="n">before</span> <span class="n">transfer</span>
+ <span class="o">*</span>         <span class="ow">is</span> <span class="n">complete</span> <span class="n">on</span> <span class="n">CDC</span> <span class="n">interface</span> <span class="p">(</span><span class="n">ie</span><span class="o">.</span> <span class="n">using</span> <span class="n">DMA</span> <span class="n">controller</span><span class="p">)</span> <span class="n">it</span> <span class="n">will</span> <span class="n">result</span>
+ <span class="o">*</span>         <span class="ow">in</span> <span class="n">receiving</span> <span class="n">more</span> <span class="n">data</span> <span class="k">while</span> <span class="n">previous</span> <span class="n">ones</span> <span class="n">are</span> <span class="n">still</span> <span class="ow">not</span> <span class="n">sent</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@param</span>  <span class="n">Buf</span><span class="p">:</span> <span class="n">Buffer</span> <span class="n">of</span> <span class="n">data</span> <span class="n">to</span> <span class="n">be</span> <span class="n">received</span>
+ <span class="o">*</span> <span class="nd">@param</span>  <span class="n">Len</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">data</span> <span class="n">received</span> <span class="p">(</span><span class="ow">in</span> <span class="nb">bytes</span><span class="p">)</span>
+ <span class="o">*</span> <span class="nd">@retval</span> <span class="n">Result</span> <span class="n">of</span> <span class="n">the</span> <span class="n">operation</span><span class="p">:</span> <span class="n">USBD_OK</span> <span class="k">if</span> <span class="nb">all</span> <span class="n">operations</span> <span class="n">are</span> <span class="n">OK</span> <span class="k">else</span> <span class="n">USBD_FAIL</span>
+ <span class="o">*/</span>
+<span class="n">static</span> <span class="n">int8_t</span> <span class="n">CDC_Receive_FS</span><span class="p">(</span><span class="n">uint8_t</span><span class="o">*</span> <span class="n">Buf</span><span class="p">,</span> <span class="n">uint32_t</span> <span class="o">*</span><span class="n">Len</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="o">/*</span> <span class="n">USER</span> <span class="n">CODE</span> <span class="n">BEGIN</span> <span class="mi">6</span> <span class="o">*/</span>
+   <span class="n">UsbComm</span><span class="p">::</span><span class="n">usb_queue</span><span class="o">.</span><span class="n">insert_received_elements</span><span class="p">(</span><span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="n">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">Buf</span><span class="p">),</span> <span class="n">Len</span><span class="p">);</span>
+
+   <span class="n">USBD_CDC_SetRxBuffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hUsbDeviceFS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+   <span class="n">USBD_CDC_ReceivePacket</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hUsbDeviceFS</span><span class="p">);</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">USBD_OK</span><span class="p">);</span>
+   <span class="o">/*</span> <span class="n">USER</span> <span class="n">CODE</span> <span class="n">END</span> <span class="mi">6</span> <span class="o">*/</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The STM’s USB Receive callback leaves us with a pointer to a received data buffer and the buffer’s length. Also, the comment above the code politely tells us that while we are enjoying our time inside the callback, usb reception is interrupted. Let’s take the data and get out!</p>
+<p>We could append the data into an array defined elsewhere, when we see <code class="docutils literal notranslate"><span class="pre">&quot;\r&quot;</span></code> execute it away. There are issues we need to consider. What if multiple commands are being received at the same time? or the callback leaves us with unfinished command? or both issues happen at once? In situation such as this we need <strong>Flow Control</strong>. <a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/CommandQueue.h">Template class CommandQueue</a> implements a Flow Controlled Queue based on <a class="reference external" href="https://en.cppreference.com/w/cpp/container/deque">C++ deque library</a>, here are some features:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Each entry in the queue is a <code class="docutils literal notranslate"><span class="pre">&quot;\r&quot;</span></code> terminated command.</p></li>
+<li><p>The insertion method <a href="#id4"><span class="problematic" id="id5">``</span></a>insert_received_elements(uint8_t* Buf, uint32_t <a href="#id6"><span class="problematic" id="id7">*</span></a>Len) must take the same format as arguments passed to the the USB Receive Handler.</p></li>
+<li><p>The most recent entry can be unfinished, and <code class="docutils literal notranslate"><span class="pre">get_queue_size()</span></code> accounts for the unfinished entry.</p></li>
+<li><p>The oldest terminated command in the queue is accessible by a pointer, not a copy assignment.</p></li>
+</ul>
+</div></blockquote>
+<p>We further instantiate a command queue in the USB helper <code class="docutils literal notranslate"><span class="pre">namespace</span> <span class="pre">UsbComm</span></code>. Notice the abstraction here, if we decided to use another interface, say SPI instead of USB, we would just need an SPI helper class instead of <code class="docutils literal notranslate"><span class="pre">UsbComm</span></code>, <code class="docutils literal notranslate"><span class="pre">CommandQueue</span></code> template would remain the same. The characters received through the USB callback are placed into <code class="docutils literal notranslate"><span class="pre">UsbComm::usb_queue</span></code>, a queue of strings.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UsbComm</span><span class="p">::</span><span class="n">usb_queue</span><span class="o">.</span><span class="n">insert_received_elements</span><span class="p">(</span><span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="n">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">Buf</span><span class="p">),</span> <span class="n">Len</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Back to our Main function, <code class="docutils literal notranslate"><span class="pre">UsbComm</span></code> serves as an abstraction layer between STM’s Driver and <code class="docutils literal notranslate"><span class="pre">CommandParser</span></code> providing functionality to send and receive data.</p>
+<p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/UsbComm.h">[view source]</a></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! class UsbComm</span>
+<span class="cm">/**</span>
+<span class="cm"> * @brief A helper class to handle usb cdc communication.</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="n">UsbComm</span> <span class="p">{</span>
+
+    <span class="k">public</span><span class="o">:</span>
+    <span class="c1">//! printf implementation</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief This function sends a string over USB virtual com port.</span>
+<span class="cm">     * @param str_to_send Pointer to the string to be sent.</span>
+<span class="cm">     */</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="n">usb_send</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span><span class="n">str_to_send</span><span class="p">);</span>
+
+    <span class="c1">// A Queue of commands seperated by &#39;\r&#39;</span>
+    <span class="k">static</span> <span class="n">CommandQueue</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="sc">&#39;</span><span class="se">\r</span><span class="sc">&#39;</span><span class="o">&gt;</span> <span class="n">usb_queue</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>We have covered the abstract firmware architecture and code flow. The next chapter covers <code class="docutils literal notranslate"><span class="pre">HardwareDriver</span></code> and the usage of microcontroller peripherals.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="command_table.html" class="btn btn-neutral float-right" title="Command Table" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../doxyrest-rst/namespace_HardwareDriver.html" class="btn btn-neutral float-left" title="namespace HardwareDriver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

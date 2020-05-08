@@ -1,0 +1,115 @@
+.. index:: pair: class; CommandParser::Cmd
+.. _doxid-class_command_parser_1_1_cmd:
+
+class CommandParser::Cmd
+========================
+
+.. toctree::
+	:hidden:
+
+Overview
+~~~~~~~~
+
+Command container class. :ref:`More...<details-class_command_parser_1_1_cmd>`
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	#include <CommandParser.h>
+	
+	class Cmd
+	{
+	public:
+		// fields
+	
+		const std::string :target:`token<doxid-class_command_parser_1_1_cmd_1af89fbc161223b896d4662e6e89880d50>`;
+		const std::string :target:`help<doxid-class_command_parser_1_1_cmd_1a7febfa599c43d22360001557092e81f8>`;
+
+		// construction
+	
+		:ref:`Cmd<doxid-class_command_parser_1_1_cmd_1a40ad057984db6471602ce4a3b410565d>`(
+			std::string token,
+			std::string help,
+			std::function<void(std::string)> cmd_handler
+			);
+
+		// methods
+	
+		void :ref:`execute<doxid-class_command_parser_1_1_cmd_1ad160651aaeb982ddef7ae59978a17169>`(std::string arg);
+	};
+.. _details-class_command_parser_1_1_cmd:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+Command container class.
+
+This container is used to place commands into the command lookup table.
+
+Construction
+------------
+
+.. index:: pair: function; Cmd
+.. _doxid-class_command_parser_1_1_cmd_1a40ad057984db6471602ce4a3b410565d:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	Cmd(
+		std::string token,
+		std::string help,
+		std::function<void(std::string)> cmd_handler
+		)
+
+Default :ref:`Cmd <doxid-class_command_parser_1_1_cmd>` constructor.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- token
+
+		- Command token used to call the specified command.
+
+	*
+		- help
+
+		- Help string.
+
+	*
+		- cmd_handler
+
+		- Function to be executed when command with the token is called.
+
+Methods
+-------
+
+.. index:: pair: function; execute
+.. _doxid-class_command_parser_1_1_cmd_1ad160651aaeb982ddef7ae59978a17169:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void execute(std::string arg)
+
+execute method.
+
+Public method to call the command handler.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- arg
+
+		- Argument string passed to the command handler.
+

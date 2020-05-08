@@ -1,0 +1,142 @@
+.. index:: pair: class; CommandQueue
+.. _doxid-class_command_queue:
+
+template class CommandQueue
+===========================
+
+.. toctree::
+	:hidden:
+
+Overview
+~~~~~~~~
+
+Template class :ref:`CommandQueue <doxid-class_command_queue>`. :ref:`More...<details-class_command_queue>`
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	#include <CommandQueue.h>
+	
+	template <class Container, typename Container::value_type control_element>
+	class CommandQueue
+	{
+	public:
+		// methods
+	
+		void :ref:`insert_received_elements<doxid-class_command_queue_1ab53a9dd8424e747360842822274d1534>`(
+			const typename Container::value_type* Buf,
+			const uint32_t* Len
+			);
+	
+		size_t :ref:`get_queue_size<doxid-class_command_queue_1abe092267f04cf0bc362e8b13469127c8>`(void);
+		const Container& :ref:`get_next_cmd<doxid-class_command_queue_1aa41eac424454735891242a08847f932a>`(void);
+		void :ref:`free_pending_cmd<doxid-class_command_queue_1a789c88b7db33c46056086a1aeb0ac2a4>`(void);
+	};
+.. _details-class_command_queue:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+Template class :ref:`CommandQueue <doxid-class_command_queue>`.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- Container
+
+		- A container class to store each command in the queue.
+
+	*
+		- control_element
+
+		- Software control element that seperates commands in the queue.
+
+Methods
+-------
+
+.. index:: pair: function; insert_received_elements
+.. _doxid-class_command_queue_1ab53a9dd8424e747360842822274d1534:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void insert_received_elements(
+		const typename Container::value_type* Buf,
+		const uint32_t* Len
+		)
+
+insert_received_elements
+
+This function copies received elements into the buffer queue. It implements software flow control using control_element to separate commands in the queue. Called from CDC_Receive_FS.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- Buf
+
+		- Buffer of data to be received.
+
+	*
+		- Len
+
+		- Number of data received (in bytes)
+
+.. index:: pair: function; get_queue_size
+.. _doxid-class_command_queue_1abe092267f04cf0bc362e8b13469127c8:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	size_t get_queue_size(void)
+
+get_queue_size
+
+Returns the current usb queue size.
+
+
+
+.. rubric:: Returns:
+
+usb queue size
+
+.. index:: pair: function; get_next_cmd
+.. _doxid-class_command_queue_1aa41eac424454735891242a08847f932a:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	const Container& get_next_cmd(void)
+
+get_next_cmd
+
+Get the next command from the buffer. Keeps the command until free_pending_cmd called.
+
+
+
+.. rubric:: Returns:
+
+Reference to the next command in the buffer.
+
+.. index:: pair: function; free_pending_cmd
+.. _doxid-class_command_queue_1a789c88b7db33c46056086a1aeb0ac2a4:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void free_pending_cmd(void)
+
+free_pending_cmd
+
+After processing the command release it from the buffer.
+

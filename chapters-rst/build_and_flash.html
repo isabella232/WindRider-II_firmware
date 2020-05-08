@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build and Flash &mdash; WindRider  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/target-highlight.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Project Structure" href="project_structure.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> WindRider
+          
+
+          
+            
+            <img src="../_static/robot.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build and Flash</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build">Build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-toolchain-path">Set Toolchain Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-cmake">Run CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compile-the-project">Compile the Project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flash">Flash</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#j-link">J-Link</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#jflashlite-gui">JFlashLite GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jlinkexe-command-line">JLinkExe Command Line</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#st-link">ST-Link</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run">Run</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_flow.html">Code Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_table.html">Command Table</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">WindRider</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Build and Flash</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/chapters-rst/build_and_flash.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-and-flash">
+<span id="id1"></span><h1>Build and Flash<a class="headerlink" href="#build-and-flash" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="build">
+<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
+<p>Instructions for building the firmware.</p>
+<div class="section" id="set-toolchain-path">
+<h3>Set Toolchain Path<a class="headerlink" href="#set-toolchain-path" title="Permalink to this headline">¶</a></h3>
+<p>Specify ARM toolchain location. Set TOOLCHIN_PATH in CMakeLists.txt to point to your toolchain’s bin directory</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">SET</span><span class="p">(</span><span class="s">TOOLCHIN_PATH</span> <span class="s2">&quot;/opt/gcc-arm-none-eabi-9-2019-q4-major/bin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-cmake">
+<h3>Run CMake<a class="headerlink" href="#run-cmake" title="Permalink to this headline">¶</a></h3>
+<p>Navigate into project root directory. Create a build directory, then enter the
+directory.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+</pre></div>
+</div>
+<p>Run CMake</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake ..
+</pre></div>
+</div>
+<p>CMake should exit with</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>-- Configuring <span class="k">done</span>
+-- Generating <span class="k">done</span>
+-- Build files have been written to: /…/windrider/build
+</pre></div>
+</div>
+</div>
+<div class="section" id="compile-the-project">
+<h3>Compile the Project<a class="headerlink" href="#compile-the-project" title="Permalink to this headline">¶</a></h3>
+<p>From the build folder run make.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make -j4
+</pre></div>
+</div>
+<p>Build folder will now contain three firmware files <em>windrider.bin</em>, <em>windrider.hex</em>, <em>windrider.elf</em> — these are compiled binary blobs ready to be flashed to the microcontroller.</p>
+</div>
+</div>
+<div class="section" id="flash">
+<h2>Flash<a class="headerlink" href="#flash" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="j-link">
+<h3>J-Link<a class="headerlink" href="#j-link" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to upload firmware using J-Link - Command Line and GUI.</p>
+<div class="section" id="jflashlite-gui">
+<h4>JFlashLite GUI<a class="headerlink" href="#jflashlite-gui" title="Permalink to this headline">¶</a></h4>
+<p>Run JFlashLite with the following settings.</p>
+<a class="reference internal image-reference" href="../_images/JFlashLite.png"><img alt="../_images/JFlashLite.png" src="../_images/JFlashLite.png" style="width: 500pt;" /></a>
+<p>In the next prompt select <em>windrider.hex</em> as data file. Click <strong>Erase</strong>, then <strong>Program</strong>.</p>
+</div>
+<div class="section" id="jlinkexe-command-line">
+<h4>JLinkExe Command Line<a class="headerlink" href="#jlinkexe-command-line" title="Permalink to this headline">¶</a></h4>
+<p>Navigate to build folder. Connect to target.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>JLinkExe -device <span class="s2">&quot;STM32F103C8&quot;</span> -if SWD -speed <span class="m">4000</span> -autoconnect
+</pre></div>
+</div>
+<p>Reser, erase, load, verify.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>r
+erase
+loadbin <span class="s2">&quot;windrider.bin&quot;</span> 0x08000000
+verifybin <span class="s2">&quot;windrider.bin&quot;</span> 0x08000000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="st-link">
+<h3>ST-Link<a class="headerlink" href="#st-link" title="Permalink to this headline">¶</a></h3>
+<p>Navigate to build folder. Run st-flash.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>st-flash write windrider.bin 0x08000000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="run">
+<h2>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
+<p>Connect host computer to WindRider board via USB. Use any modem control software (e.g. <a class="reference external" href="https://linux.die.net/man/1/minicom">minicom</a>) or serial port API (e.g. <a class="reference external" href="https://pyserial.readthedocs.io/en/latest/">pyserial</a>).</p>
+<p>To print a full list of commands and arguments type ? and hit return.
+A list of available commands is available <a href="#id2"><span class="problematic" id="id3">here_</span></a>.</p>
+<p>Some examples of valid commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>solenoid <span class="m">1</span> <span class="m">5</span> <span class="m">20</span>   <span class="c1">## Enable impactor at channel 1, on_time = 5ms, off_time = 20ms.</span>
+servo <span class="m">0</span> <span class="m">100</span>       <span class="c1">## Set servo at channel 0 to 100 deg.</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="project_structure.html" class="btn btn-neutral float-right" title="Project Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

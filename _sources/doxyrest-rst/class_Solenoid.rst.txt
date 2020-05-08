@@ -1,0 +1,144 @@
+.. index:: pair: class; Solenoid
+.. _doxid-class_solenoid:
+
+class Solenoid
+==============
+
+.. toctree::
+	:hidden:
+
+Overview
+~~~~~~~~
+
+:ref:`Solenoid <doxid-class_solenoid>` class. :ref:`More...<details-class_solenoid>`
+
+
+.. ref-code-block:: cpp
+	:class: doxyrest-overview-code-block
+
+	#include <Solenoid.h>
+	
+	class Solenoid
+	{
+	public:
+		// construction
+	
+		:ref:`Solenoid<doxid-class_solenoid_1a63b636aed5347e7ccb245119f5c3b619>`(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+
+		// methods
+	
+		void :ref:`initialize<doxid-class_solenoid_1aa3d5e32aa32974200fe18ac595350a24>`(void);
+		void :target:`adjust<doxid-class_solenoid_1a5bc39042e966e159a14602ebbb22de30>`(void);
+		void :ref:`on<doxid-class_solenoid_1ae7e0277ef53699005405556b16c3f999>`(uint16_t off_time_ms, uint16_t on_time_ms);
+		void :ref:`off<doxid-class_solenoid_1a27abcc1d1336b65548fad7ad72e1c7bc>`(void);
+		static void :ref:`tick<doxid-class_solenoid_1a0a75e7914c8dad52ad5349958dc7452d>`(void);
+	};
+.. _details-class_solenoid:
+
+Detailed Documentation
+~~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`Solenoid <doxid-class_solenoid>` class.
+
+This is a driver class for a solenoid. WARNING: In the current implementation, solenoids use a software defined pwm and share a Timer 3 with suction motor.
+
+Construction
+------------
+
+.. index:: pair: function; Solenoid
+.. _doxid-class_solenoid_1a63b636aed5347e7ccb245119f5c3b619:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	Solenoid(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
+
+:ref:`Solenoid <doxid-class_solenoid>` constructor.
+
+Initializes a new solenoid instance, hardware must be configured throught calling :ref:`initialize() <doxid-class_solenoid_1aa3d5e32aa32974200fe18ac595350a24>` command for each solenoid. Solenoids use TIM3 to generate square wave (0.5 duty cycle 2ms period) and count the on/off time.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- GPIOx
+
+		- :ref:`Solenoid <doxid-class_solenoid>` port.
+
+	*
+		- GPIO_Pin
+
+		- :ref:`Solenoid <doxid-class_solenoid>` pin.
+
+Methods
+-------
+
+.. index:: pair: function; initialize
+.. _doxid-class_solenoid_1aa3d5e32aa32974200fe18ac595350a24:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void initialize(void)
+
+initialize method
+
+Initializes gpio hardware to drive solenoids.
+
+.. index:: pair: function; on
+.. _doxid-class_solenoid_1ae7e0277ef53699005405556b16c3f999:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void on(uint16_t off_time_ms, uint16_t on_time_ms)
+
+method on
+
+Starts the impactor with given pulse lenth and period.
+
+
+
+.. rubric:: Parameters:
+
+.. list-table::
+	:widths: 20 80
+
+	*
+		- off_time_ms
+
+		- Delay between pulses in milliseconds.
+
+	*
+		- on_time_ms
+
+		- Delay of the impact puse in milliseconds.
+
+.. index:: pair: function; off
+.. _doxid-class_solenoid_1a27abcc1d1336b65548fad7ad72e1c7bc:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	void off(void)
+
+method off
+
+Turns off the Impactor.
+
+.. index:: pair: function; tick
+.. _doxid-class_solenoid_1a0a75e7914c8dad52ad5349958dc7452d:
+
+.. ref-code-block:: cpp
+	:class: doxyrest-title-code-block
+
+	static void tick(void)
+
+method tick.
+
+Called from a timer interrupt to keep track of on/off and pulse timings for each :ref:`Solenoid <doxid-class_solenoid>` instance.
+

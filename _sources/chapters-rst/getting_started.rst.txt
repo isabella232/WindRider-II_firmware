@@ -1,0 +1,28 @@
+.. getting_started:
+
+===============
+Getting started
+===============
+
+Before we dive into the description of the code flow there are some prerequisites we assume you are familiar with and thus will not be explained in this document:
+
+ * C++ standard library programming experience.
+
+ * STM32 Peripheral library. STM libraries are very well documented inside their header files. Feel free to navigate to link folder and take a closer look.
+
+ * Unix command line.
+
+ * CMake. Used as a build system. Not very crucial to modify the code.
+
+
+Dependencies
+============
+Tools required to build and debug this firmware.
+
+ + arm-none-eabi_ -- Official ARM compiler.
+ + CMake_ -- Build system.
+ + An SWD probe -- Used for flashing and debugging. Can be either st-link or jlink.
+
+ .. _arm-none-eabi: https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads/
+ .. _CMake: https://cmake.org/download/
+
