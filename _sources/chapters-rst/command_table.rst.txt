@@ -13,6 +13,8 @@ The table of all available commands is shown below.
    :align: center
    :header-rows: 1
 
+Detailed command description is presented below.
+
 current
 =======
 
@@ -21,15 +23,15 @@ Prints current supplied to suction motor in mA.
 Example:
 --------
 
-.. code-block: shell
+.. code-block:: shell
 
- current	## Request suction current. Command has no arguments.
- 1234		## Returned: 1.234 A
+   current	## Request suction current. Command has no arguments.
+   1234		## Returned: 1.234 A
 
 Peripherals
 -----------
 
-Command Handler: HardwareDriver::suction_current(std::string arg) 
+Command Handler: ``HardwareDriver::suction_current(std::string arg)``
 
 `[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L318>`_
 
@@ -47,35 +49,184 @@ The led drivers are programmable current sources -- adjust the voltage to mainta
 Example:
 --------
 
-.. code-block: shell
+.. code-block:: shell
 
- # Configure led brightness. This does not turn leds on.
- led 0 100	## Set current on channel 0 to 100mA
- led 1 200	## Set current on channel 1 to 200mA
- led 2 1000	## Set current on channel 2 to 1A
+    # Configure led brightness. This does not turn leds on.
+    led 0 100	## Set current on channel 0 to 100mA
+    led 1 200	## Set current on channel 1 to 200mA
+    led 2 1000	## Set current on channel 2 to 1A
 
- # This turns all led channels on at once
- led on
+    # This turns all led channels on at once
+    led on
 
- # We can turn all channels off at once as well
+    # We can turn all channels off at once as well
 
- led off
+    led off
 
- # Or turn channels on/off selectively
+    # Or turn channels on/off selectively
 
- led 0 on	# Turns on only channel 0.
- led 2 off	$ Turns off only channel 2.
+    led 0 on	## Turns on only channel 0.
+    led 2 off	## Turns off only channel 2.
 
 Peripherals
 -----------
-Command Handler: HardwareDriver::led(std::string arg)
+Command Handler: ``HardwareDriver::led(std::string arg)``
 
 `[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L262>`_
 
-Led drivers require pwm signal, the duty cycle is mapped proportionally to the current output. The drivers will automatically adjust the voltage to maintain constant current.
+Led drivers require pwm input, the duty cycle is mapped proportionally to the current output of the led drivers. The drivers will automatically adjust the voltage to maintain constant current.
 
  - 0% duty cycle	--- 0mA current
  - 100% duty cycle	--- 1500mA current
 
 The pwm generation is mapped to the following peripherals. 
 
+| LED0 -- TIM2_CH1 -- GPIO_PIN_0 -- GPIOA
+| LED1 -- TIM2_CH2 -- GPIO_PIN_1 -- GPIOA
+
+Timer reload frequency is 50Hz (to match with servo control).
+ 
+.. warning::
+
+  TIM2 is shared between led drivers and servos.
+
+
+servo
+=====
+This command manipulates servo angles by adjusting duty cycle on the timer outputs. There are currently two channels allocated for 5V towermicro-like servos.
+
+Example
+-------
+.. code-block:: shell
+
+   servo 0	## Set servo to the 0 deg position
+   servo 77	## Set servo to 77 deg position
+
+Peripherals
+-----------
+Command Handler: `HardwareDriver::servo_angle(std::string arg)`
+
+`[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L86>`_
+
+The servos are driven by **pwm** signal's **high time**:
+
+| :math:`1ms - 0^o`  
+| :math:`2ms - 180^o`
+
+Mapping
+^^^^^^^
+
+| SERVO1 -- TIM2_CH3 -- GPIO_PIN_10 -- GPIOB
+| SERVO2 -- TIM2_CH4 -- GPIO_PIN_11 -- GPIOB
+
+Timer reload frequency is 50Hz.
+
+.. warning::
+
+  TIM2 is shared between led drivers and servos.
+
+solenoid
+========
+This command controls the impactors. 
+
+.. warning::
+ Impactor *on/off* timing must be initialized prior to running the impactors. Improperly initialized timings **can burn the impactors**.
+
+Once ``solenoid 0 on`` command has been issued, the impactor at channel 0 will continuously run utilizing the *on/off* timing pattern. ``on_time`` corresponds to the time interval in milliseconds when the current is supplied to the impactor. Similarly, ``off_time`` -- current is not supplied.
+
+.. Note::
+
+ You might be curious why impactor timing is limited to 2ms. The reason lies in hardware. Solenoids are connected to the 24V line, thought most of the solenoids run at 12V. To mitigate the issue, the output voltage of the solenoid control pin is set to a software generated square wave with 50% duty cycle. The timer responsible for toggling the solenoid control pins runs with a resolution of 1ms, thus min period is 2ms.
+
+Example
+-------
+
+.. code-block::
+
+   solenoid 0 4 20	## Configure channel 0 impactor on/off timings.
+   solenoid 0 on	## Start the impactor at channel 0.
+   solenoid 0 off	## Stop the impactor at channel 0.
+   ## Same applies to channel 1.
+
+Peripherals
+-----------
+Command Handler: ``HardwareDriver::solenoid(std::string arg)``
+
+`[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L202>`
+
+Two solenoid transistor switches are driven by gpio pins. TIM3 is used to handle on/off times with 2ms resolution.
+
+Mapping
+^^^^^^^
+
+| SOLENOID0_Pin -- GPIO_PIN_12 -- GPIOB
+| SOLENOID1_Pin -- GPIO_PIN_13 -- GPIOB
+
+SOLENOID1_Pin is defined as SPARE pin on the circuit schematic.
+
+suction
+=======
+This command controls the suction motor power in percentage. The on/off option physically connects and disconnects the suction motor circuit. Setting power before enabling the suction circuitry will result in no action.
+
+Example
+-------
+
+.. code-block::
+  
+   suction on	## Enable suction motor circuitry.
+   suction 42	## Set power to 42%.
+   suction 80	## Set power to 42%.
+   suction 0	## Turn off suction, but keep the circuitry enabled.
+   suction off	## Disable suction motor circuitry.
+   
+Peripherals
+-----------
+Command Handler: ``HardwareDriver::suction_power(std::string arg)``
+
+`[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L140>`_
+
+
+Suction motor driver is controlled by a 1kHz pwm signal generated on TIM3. A gpio pin is used to enable/disable the motor circuitry.
+
+| 0 duty_cycle		-- 0% power
+| 0.5 duty_cycle	-- 50% power
+| 1 duty_cycle		-- 100% power
+
+Mapping
+^^^^^^^
+
+| SUCTION_PWM -- TIM3_CH1 -- GPIO_PIN_6 -- GPIOB
+| SUCTION_EN_Pin -- GPIO_PIN_4 -- GPIOA
+
+
+uart
+====
+
+This command implements usb-to-uart forwarding feature, which allows to forward character strings from the host computer to the uart interface of the microcontroller, in this case connected to rs-232 and further Faulhaber motor drivers.
+
+Example
+-------
+
+Let's say we would like to load a custom configuration into the connected Faulhaber motor drivers.
+
+.. code-block:: shell
+
+   uart "1SP1000"	## string "1SP1000\r" will be forwarded through uart.
+
+Faulhaber motor must have replied something, the reply forwarding is disabled by default. Use the following command to enable the forwarding.
+
+.. code-block:: shell
+
+   uart reply on	## Enables reply forwarding.
+
+.. warning::
+   
+   After issuing the command above everything received on UART will be forwarded to host through USB until ``uart reply off`` is issued.
+
+Peripherals
+-----------
+Command Handler: ``HardwareDriver::uart(std::string arg)``
+
+`[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L325>`_
+
+``class FaulhaberComm`` class implements helper methods to send and receive strings via USART1 peripheral. Please see *FaulhaberComm.cpp/h* for the further description.
