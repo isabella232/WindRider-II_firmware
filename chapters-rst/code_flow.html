@@ -25,7 +25,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script src="../_static/target-highlight.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -34,12 +34,10 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Command Table" href="command_table.html" />
-    <link rel="prev" title="namespace HardwareDriver" href="../doxyrest-rst/namespace_HardwareDriver.html" /> 
+    <link rel="next" title="Command Interface" href="command_table.html" />
+    <link rel="prev" title="Project Structure" href="project_structure.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -307,7 +305,7 @@ Driver and Command Parser connected through a Command Queue.</p>
 <span class="cm">/**</span>
 <span class="cm"> *  @brief This container is used to place commands into the command lookup table.</span>
 <span class="cm"> */</span>
-<span class="k">class</span> <span class="n">Cmd</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">Cmd</span> <span class="p">{</span>
 
     <span class="k">public</span><span class="o">:</span>
 
@@ -362,29 +360,29 @@ Driver and Command Parser connected through a Command Queue.</p>
 <p>USB Communication Device Class, in short USB CDC or virtual com port is a <strong>Driver</strong> provided by STM to handle all aspects of USB communication the microcontroller is capable of. When connected to a host, the Driver emulates a <em>tty-like</em> device on a Unix system (<em>COM</em> device on Windows). The nature of the USB protocol and the Driver’s code itself are very sophisticated and will not be discussed in this manual. In fact, USB Driver takes up a significant amount of microcontroller’s flash, in our case about 30%. The Driver resembles a process which handles initialization, pinging, power management, packet wrapping, redundancy checks, etc.. on the background giving us callback-based interface to RX/TX capabilities, and connect, disconnect events. These callbacks reside in the following source file.</p>
 <p>Let’s take a look at the <strong>Receive</strong> callback function.</p>
 <p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/usbd_cdc_if.cpp#L249">[view source]</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
- <span class="o">*</span> <span class="nd">@brief</span>  <span class="n">Data</span> <span class="n">received</span> <span class="n">over</span> <span class="n">USB</span> <span class="n">OUT</span> <span class="n">endpoint</span> <span class="n">are</span> <span class="n">sent</span> <span class="n">over</span> <span class="n">CDC</span> <span class="n">interface</span>
- <span class="o">*</span>         <span class="n">through</span> <span class="n">this</span> <span class="n">function</span><span class="o">.</span>
- <span class="o">*</span>
- <span class="o">*</span>         <span class="nd">@note</span>
- <span class="o">*</span>         <span class="n">This</span> <span class="n">function</span> <span class="n">will</span> <span class="n">block</span> <span class="nb">any</span> <span class="n">OUT</span> <span class="n">packet</span> <span class="n">reception</span> <span class="n">on</span> <span class="n">USB</span> <span class="n">endpoint</span>
- <span class="o">*</span>         <span class="n">untill</span> <span class="n">exiting</span> <span class="n">this</span> <span class="n">function</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">exit</span> <span class="n">this</span> <span class="n">function</span> <span class="n">before</span> <span class="n">transfer</span>
- <span class="o">*</span>         <span class="ow">is</span> <span class="n">complete</span> <span class="n">on</span> <span class="n">CDC</span> <span class="n">interface</span> <span class="p">(</span><span class="n">ie</span><span class="o">.</span> <span class="n">using</span> <span class="n">DMA</span> <span class="n">controller</span><span class="p">)</span> <span class="n">it</span> <span class="n">will</span> <span class="n">result</span>
- <span class="o">*</span>         <span class="ow">in</span> <span class="n">receiving</span> <span class="n">more</span> <span class="n">data</span> <span class="k">while</span> <span class="n">previous</span> <span class="n">ones</span> <span class="n">are</span> <span class="n">still</span> <span class="ow">not</span> <span class="n">sent</span><span class="o">.</span>
- <span class="o">*</span>
- <span class="o">*</span> <span class="nd">@param</span>  <span class="n">Buf</span><span class="p">:</span> <span class="n">Buffer</span> <span class="n">of</span> <span class="n">data</span> <span class="n">to</span> <span class="n">be</span> <span class="n">received</span>
- <span class="o">*</span> <span class="nd">@param</span>  <span class="n">Len</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">data</span> <span class="n">received</span> <span class="p">(</span><span class="ow">in</span> <span class="nb">bytes</span><span class="p">)</span>
- <span class="o">*</span> <span class="nd">@retval</span> <span class="n">Result</span> <span class="n">of</span> <span class="n">the</span> <span class="n">operation</span><span class="p">:</span> <span class="n">USBD_OK</span> <span class="k">if</span> <span class="nb">all</span> <span class="n">operations</span> <span class="n">are</span> <span class="n">OK</span> <span class="k">else</span> <span class="n">USBD_FAIL</span>
- <span class="o">*/</span>
-<span class="n">static</span> <span class="n">int8_t</span> <span class="n">CDC_Receive_FS</span><span class="p">(</span><span class="n">uint8_t</span><span class="o">*</span> <span class="n">Buf</span><span class="p">,</span> <span class="n">uint32_t</span> <span class="o">*</span><span class="n">Len</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @brief  Data received over USB OUT endpoint are sent over CDC interface</span>
+<span class="cm"> *         through this function.</span>
+<span class="cm"> *</span>
+<span class="cm"> *         @note</span>
+<span class="cm"> *         This function will block any OUT packet reception on USB endpoint</span>
+<span class="cm"> *         untill exiting this function. If you exit this function before transfer</span>
+<span class="cm"> *         is complete on CDC interface (ie. using DMA controller) it will result</span>
+<span class="cm"> *         in receiving more data while previous ones are still not sent.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param  Buf: Buffer of data to be received</span>
+<span class="cm"> * @param  Len: Number of data received (in bytes)</span>
+<span class="cm"> * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL</span>
+<span class="cm"> */</span>
+<span class="k">static</span> <span class="kt">int8_t</span> <span class="nf">CDC_Receive_FS</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span> <span class="n">Buf</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="o">*</span><span class="n">Len</span><span class="p">)</span> <span class="p">{</span>
 
-   <span class="o">/*</span> <span class="n">USER</span> <span class="n">CODE</span> <span class="n">BEGIN</span> <span class="mi">6</span> <span class="o">*/</span>
-   <span class="n">UsbComm</span><span class="p">::</span><span class="n">usb_queue</span><span class="o">.</span><span class="n">insert_received_elements</span><span class="p">(</span><span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="n">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">Buf</span><span class="p">),</span> <span class="n">Len</span><span class="p">);</span>
+   <span class="cm">/* USER CODE BEGIN 6 */</span>
+   <span class="n">UsbComm</span><span class="o">::</span><span class="n">usb_queue</span><span class="p">.</span><span class="n">insert_received_elements</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">Buf</span><span class="p">),</span> <span class="n">Len</span><span class="p">);</span>
 
    <span class="n">USBD_CDC_SetRxBuffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hUsbDeviceFS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
    <span class="n">USBD_CDC_ReceivePacket</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hUsbDeviceFS</span><span class="p">);</span>
    <span class="k">return</span> <span class="p">(</span><span class="n">USBD_OK</span><span class="p">);</span>
-   <span class="o">/*</span> <span class="n">USER</span> <span class="n">CODE</span> <span class="n">END</span> <span class="mi">6</span> <span class="o">*/</span>
+   <span class="cm">/* USER CODE END 6 */</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -408,7 +406,7 @@ Driver and Command Parser connected through a Command Queue.</p>
 <span class="cm">/**</span>
 <span class="cm"> * @brief A helper class to handle usb cdc communication.</span>
 <span class="cm"> */</span>
-<span class="k">class</span> <span class="n">UsbComm</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">UsbComm</span> <span class="p">{</span>
 
     <span class="k">public</span><span class="o">:</span>
     <span class="c1">//! printf implementation</span>
@@ -419,7 +417,7 @@ Driver and Command Parser connected through a Command Queue.</p>
     <span class="k">static</span> <span class="kt">void</span> <span class="n">usb_send</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span><span class="n">str_to_send</span><span class="p">);</span>
 
     <span class="c1">// A Queue of commands seperated by &#39;\r&#39;</span>
-    <span class="k">static</span> <span class="n">CommandQueue</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="sc">&#39;</span><span class="se">\r</span><span class="sc">&#39;</span><span class="o">&gt;</span> <span class="n">usb_queue</span><span class="p">;</span>
+    <span class="k">static</span> <span class="n">CommandQueue</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="sc">&#39;\r&#39;</span><span class="o">&gt;</span> <span class="n">usb_queue</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -435,10 +433,10 @@ Driver and Command Parser connected through a Command Queue.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_table.html" class="btn btn-neutral float-right" title="Command Table" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_table.html" class="btn btn-neutral float-right" title="Command Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../doxyrest-rst/namespace_HardwareDriver.html" class="btn btn-neutral float-left" title="namespace HardwareDriver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="project_structure.html" class="btn btn-neutral float-left" title="Project Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

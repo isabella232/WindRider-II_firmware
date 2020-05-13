@@ -25,7 +25,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script src="../_static/target-highlight.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -34,11 +34,9 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="template class CommandQueue" href="../doxyrest-rst/class_CommandQueue.html" />
+    <link rel="next" title="Code Flow" href="code_flow.html" />
     <link rel="prev" title="Build and Flash" href="build_and_flash.html" /> 
 </head>
 
@@ -91,15 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="build_and_flash.html">Build and Flash</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Project Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#file-tree">File Tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#class-tree">Class Tree</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../doxyrest-rst/class_CommandQueue.html">template class CommandQueue</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../doxyrest-rst/namespace_CommandParser.html">namespace CommandParser</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../doxyrest-rst/class_CommandParser_Cmd.html">class CommandParser::Cmd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../doxyrest-rst/class_UsbComm.html">class UsbComm</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../doxyrest-rst/class_Solenoid.html">class Solenoid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../doxyrest-rst/namespace_HardwareDriver.html">namespace HardwareDriver</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#class-tree">Class Tree</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="code_flow.html">Code Flow</a></li>
@@ -173,61 +163,61 @@
 <p>The project tree below outlines the files that were added or modified in the development process. The project is organized according to STM CubeMX code generation tool. Any files that were were imported as STM Libraries and were not modified in the development process are omitted in the following tree.</p>
 <div class="section" id="file-tree">
 <h2>File Tree<a class="headerlink" href="#file-tree" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>├── .vscode/
-│   └── launch.json         <span class="c1">## VSCode Build and Debug Configuration.</span>
-│
-├── CMakeLists.txt              <span class="c1">## CMake build configuration.</span>
-│
-├── Drivers/
-│   ├── CMSIS/                  <span class="c1">## STM CMSIS drivers.</span>
-│   └── STM32F1xx_HAL_Driver/   <span class="c1">## STM Peripheral drivers.</span>
-│
-├── Inc/
-│   ├── CommandParser.h         <span class="c1">## Command Parser class declaration.</span>
-│   ├── CommandQueue.h          <span class="c1">## Flow control implementation used in USB Queue.</span>
-│   ├── FaulhaberComm.h         <span class="c1">## Faulhaber Communication class declaration.</span>
-│   ├── HardwareDriver.h        <span class="c1">## Command Handlers namespace declaration.</span>
-│   ├── Solenoid.h              <span class="c1">## Solenoid class declaration.</span>
-│   ├── UsbComm.h               <span class="c1">## Usb communication helper class declaration.</span>
-│   ├── initialization.h        <span class="c1">## Initialization functions declaration.</span>
-│   └── stm32f1xx_it.h          <span class="c1">## Interrupt handlers declaration.</span>
-│
-├── Middlewares/                <span class="c1">## Contains STM USB Communication Class Driver.</span>
-│
-├── README.md                   <span class="c1">## Git readme.</span>
-├── STM32F103C8Tx_FLASH.ld      <span class="c1">## Loader script.</span>
-│
-├── Src/
-│   ├── CommandParser.cpp       <span class="c1">## Command Parser class implementation.</span>
-│   ├── FaulhaberComm.cpp       <span class="c1">## Faulhaber Communication class implementation.</span>
-│   ├── HardwareDriver.cpp      <span class="c1">## Command Handlers namespace implementationxs.</span>
-│   ├── Solenoid.cpp            <span class="c1">## Solenoid class implementationxs.</span>
-│   ├── UsbComm.cpp             <span class="c1">## Usb communication helper class implementationxs.</span>
-│   ├── initialization.cpp      <span class="c1">## Initialization functions implementation.</span>
-│   ├── main.cpp                <span class="c1">## Main function.</span>
-│   ├── stm32f1xx_it.cpp        <span class="c1">## Interrupt handlers implementation.</span>
-│   └── usbd_cdc_if.cpp         <span class="c1">## Usb interface functions.</span>
-│
-├── startup/            <span class="c1">## Startup code.</span>
-│
-├── stm32f103c8t6.svd           <span class="c1">## CMSIS Peripheral Address Map (for debugging).</span>
-└── windrider.ioc               <span class="c1">## Template STM CubeMX project configuration.</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="p">|</span>-- .vscode/
+<span class="p">|</span>   <span class="p">|</span>-- launch.json             <span class="c1">## VSCode Build and Debug Configuration.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- CMakeLists.txt              <span class="c1">## CMake build configuration.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- Drivers/
+<span class="p">|</span>   <span class="p">|</span>-- CMSIS/                  <span class="c1">## STM CMSIS drivers.</span>
+<span class="p">|</span>   <span class="p">|</span>-- STM32F1xx_HAL_Driver/   <span class="c1">## STM Peripheral drivers.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- Inc/
+<span class="p">|</span>   <span class="p">|</span>-- CommandParser.h         <span class="c1">## Command Parser class declaration.</span>
+<span class="p">|</span>   <span class="p">|</span>-- CommandQueue.h          <span class="c1">## Flow control implementation used in USB Queue.</span>
+<span class="p">|</span>   <span class="p">|</span>-- FaulhaberComm.h         <span class="c1">## Faulhaber Communication class declaration.</span>
+<span class="p">|</span>   <span class="p">|</span>-- HardwareDriver.h        <span class="c1">## Command Handlers namespace declaration.</span>
+<span class="p">|</span>   <span class="p">|</span>-- Solenoid.h              <span class="c1">## Solenoid class declaration.</span>
+<span class="p">|</span>   <span class="p">|</span>-- UsbComm.h               <span class="c1">## Usb communication helper class declaration.</span>
+<span class="p">|</span>   <span class="p">|</span>-- initialization.h        <span class="c1">## Initialization functions declaration.</span>
+<span class="p">|</span>   <span class="p">|</span>-- stm32f1xx_it.h          <span class="c1">## Interrupt handlers declaration.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- Middlewares/                <span class="c1">## Contains STM USB Communication Class Driver.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- README.md                   <span class="c1">## Git readme.</span>
+<span class="p">|</span>-- STM32F103C8Tx_FLASH.ld      <span class="c1">## Loader script.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- Src/
+<span class="p">|</span>   <span class="p">|</span>-- CommandParser.cpp       <span class="c1">## Command Parser class implementation.</span>
+<span class="p">|</span>   <span class="p">|</span>-- FaulhaberComm.cpp       <span class="c1">## Faulhaber Communication class implementation.</span>
+<span class="p">|</span>   <span class="p">|</span>-- HardwareDriver.cpp      <span class="c1">## Command Handlers namespace implementationxs.</span>
+<span class="p">|</span>   <span class="p">|</span>-- Solenoid.cpp            <span class="c1">## Solenoid class implementationxs.</span>
+<span class="p">|</span>   <span class="p">|</span>-- UsbComm.cpp             <span class="c1">## Usb communication helper class implementationxs.</span>
+<span class="p">|</span>   <span class="p">|</span>-- initialization.cpp      <span class="c1">## Initialization functions implementation.</span>
+<span class="p">|</span>   <span class="p">|</span>-- main.cpp                <span class="c1">## Main function.</span>
+<span class="p">|</span>   <span class="p">|</span>-- stm32f1xx_it.cpp        <span class="c1">## Interrupt handlers implementation.</span>
+<span class="p">|</span>   <span class="p">|</span>-- usbd_cdc_if.cpp         <span class="c1">## Usb interface functions.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- startup/            <span class="c1">## Startup code.</span>
+<span class="p">|</span>
+<span class="p">|</span>-- stm32f103c8t6.svd           <span class="c1">## CMSIS Peripheral Address Map (for debugging).</span>
+<span class="p">|</span>-- windrider.ioc               <span class="c1">## Template STM CubeMX project configuration.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="class-tree">
 <h2>Class Tree<a class="headerlink" href="#class-tree" title="Permalink to this headline">¶</a></h2>
-<p>Here are the classes, namespaces, and interfaces with brief descriptions:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../doxyrest-rst/class_CommandQueue.html">template class CommandQueue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doxyrest-rst/namespace_CommandParser.html">namespace CommandParser</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doxyrest-rst/class_CommandParser_Cmd.html">class CommandParser::Cmd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doxyrest-rst/class_UsbComm.html">class UsbComm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doxyrest-rst/class_Solenoid.html">class Solenoid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doxyrest-rst/namespace_HardwareDriver.html">namespace HardwareDriver</a></li>
+<p>Links to declarations of classes, namespaces, and interfaces. Find brief descriptions of member functions in comments.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/CommandQueue.h">template class CommandQueue</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/CommandParser.h">namespace CommandParser</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/CommandParser.h#L21">class CommandParser::Cmd</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/UsbComm.h">class UsbComm</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/Solenoid.h">class Solenoid</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Inc/HardwareDriver.h">namespace HardwareDriver</a></p></li>
 </ul>
-</div>
+</div></blockquote>
 </div>
 </div>
 
@@ -239,7 +229,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../doxyrest-rst/class_CommandQueue.html" class="btn btn-neutral float-right" title="template class CommandQueue" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="code_flow.html" class="btn btn-neutral float-right" title="Code Flow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="build_and_flash.html" class="btn btn-neutral float-left" title="Build and Flash" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

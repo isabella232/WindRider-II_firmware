@@ -223,7 +223,7 @@ Let's take a look at the **Receive** callback function.
 
 `[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/usbd_cdc_if.cpp#L249>`_
 
-.. code-block::
+.. code-block:: cpp
 
     /**
      * @brief  Data received over USB OUT endpoint are sent over CDC interface

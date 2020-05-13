@@ -25,7 +25,6 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script src="../_static/target-highlight.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -35,8 +34,6 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/doxyrest-pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/doxyrest-sphinx_rtd_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Code Flow" href="code_flow.html" /> 
@@ -103,33 +100,38 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">Peripherals</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#servo">servo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#move">move</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Peripherals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Peripherals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#servo">servo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Peripherals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mapping">Mapping</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#solenoid">solenoid</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Peripherals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id9">Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Peripherals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">Mapping</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#suction">suction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Peripherals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id13">Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Peripherals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Mapping</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#uart">uart</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Peripherals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Peripherals</a></li>
 </ul>
 </li>
 </ul>
@@ -238,41 +240,29 @@
 <td><p>None</p></td>
 <td><p>Set led current.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Left</p></td>
-<td><p>[–30000…30000]</p></td>
+<tr class="row-odd"><td><p>move</p></td>
+<td><p>motor1 rpm</p></td>
+<td><p>motor2 rpm</p></td>
 <td><p>None</p></td>
-<td><p>None</p></td>
-<td><p>Set left motor speed.</p></td>
+<td><p>Set motor speed.</p></td>
 </tr>
-<tr class="row-even"><td><p>right</p></td>
-<td><p>[–30000…30000]</p></td>
-<td><p>None</p></td>
-<td><p>None</p></td>
-<td><p>Set right motor speed.</p></td>
-</tr>
-<tr class="row-odd"><td><p>servo</p></td>
+<tr class="row-even"><td><p>servo</p></td>
 <td><p>#channel [0-1]</p></td>
 <td><p>Angle [0-180]deg</p></td>
 <td><p>None</p></td>
 <td><p>Set servo angle.</p></td>
 </tr>
-<tr class="row-even"><td><p>solenoid</p></td>
+<tr class="row-odd"><td><p>solenoid</p></td>
 <td><p>#channel [0-1]</p></td>
 <td><p>[on] or [off]</p></td>
 <td><p>None</p></td>
 <td><p>Enable/Disable impactor.</p></td>
 </tr>
-<tr class="row-odd"><td><p>solenoid</p></td>
+<tr class="row-even"><td><p>solenoid</p></td>
 <td><p>#channel [0-1]</p></td>
-<td><p>[0-5000]ms on_time</p></td>
-<td><p>[0-5000]ms off_time</p></td>
+<td><p>[2-5000]ms on_time</p></td>
+<td><p>[2-5000]ms off_time</p></td>
 <td><p>Set impactor on/off time intervals.</p></td>
-</tr>
-<tr class="row-even"><td><p>straight</p></td>
-<td><p>[–30000…30000]</p></td>
-<td><p>None</p></td>
-<td><p>None</p></td>
-<td><p>Speed loaded into both motor drivers synchronously.</p></td>
 </tr>
 <tr class="row-odd"><td><p>suction</p></td>
 <td><p>[on] or [off]</p></td>
@@ -301,8 +291,8 @@
 <p>Prints current supplied to suction motor in mA.</p>
 <div class="section" id="example">
 <h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>current  <span class="c1">## Request suction current. Command has no arguments.</span>
-<span class="m">1234</span>     <span class="c1">## Returned: 1.234 A</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>current      <span class="c1">## Request suction current. Command has no arguments.</span>
+<span class="m">1234</span>         <span class="c1">## Returned: 1.234 A</span>
 </pre></div>
 </div>
 </div>
@@ -348,8 +338,8 @@ led <span class="m">2</span> off   <span class="c1">## Turns off only channel 2.
 <p>Led drivers require pwm input, the duty cycle is mapped proportionally to the current output of the led drivers. The drivers will automatically adjust the voltage to maintain constant current.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>0% duty cycle    — 0mA current</p></li>
-<li><p>100% duty cycle  — 1500mA current</p></li>
+<li><p>0% duty cycle        — 0mA current</p></li>
+<li><p>100% duty cycle      — 1500mA current</p></li>
 </ul>
 </div></blockquote>
 <p>The pwm generation is mapped to the following peripherals.</p>
@@ -364,18 +354,33 @@ led <span class="m">2</span> off   <span class="c1">## Turns off only channel 2.
 </div>
 </div>
 </div>
-<div class="section" id="servo">
-<h2>servo<a class="headerlink" href="#servo" title="Permalink to this headline">¶</a></h2>
-<p>This command manipulates servo angles by adjusting duty cycle on the timer outputs. There are currently two channels allocated for 5V towermicro-like servos.</p>
+<div class="section" id="move">
+<h2>move<a class="headerlink" href="#move" title="Permalink to this headline">¶</a></h2>
+<p>This command directly loads speeds into Faulhaber motor drivers.</p>
 <div class="section" id="id4">
 <h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>servo <span class="m">0</span>  <span class="c1">## Set servo to the 0 deg position</span>
-servo <span class="m">77</span> <span class="c1">## Set servo to 77 deg position</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>move <span class="m">1000</span> <span class="m">1000</span>       <span class="c1">## Rotate both motors at 1000rpm.</span>
+move -1000 <span class="m">1000</span>      <span class="c1">## This will make the robot rotate around itself</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id5">
 <h3>Peripherals<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>This command uses <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">FaulhaberComm</span></code> underlying uart driver to communicate to the motors.</p>
+</div>
+</div>
+<div class="section" id="servo">
+<h2>servo<a class="headerlink" href="#servo" title="Permalink to this headline">¶</a></h2>
+<p>This command manipulates servo angles by adjusting duty cycle on the timer outputs. There are currently two channels allocated for 5V towermicro-like servos.</p>
+<div class="section" id="id6">
+<h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>servo <span class="m">0</span>      <span class="c1">## Set servo to the 0 deg position</span>
+servo <span class="m">77</span>     <span class="c1">## Set servo to 77 deg position</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Peripherals<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Command Handler: <cite>HardwareDriver::servo_angle(std::string arg)</cite></p>
 <p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L86">[view source]</a></p>
 <p>The servos are driven by <strong>pwm</strong> signal’s <strong>high time</strong>:</p>
@@ -407,24 +412,24 @@ servo <span class="m">77</span> <span class="c1">## Set servo to 77 deg position
 <p>Once <code class="docutils literal notranslate"><span class="pre">solenoid</span> <span class="pre">0</span> <span class="pre">on</span></code> command has been issued, the impactor at channel 0 will continuously run utilizing the <em>on/off</em> timing pattern. <code class="docutils literal notranslate"><span class="pre">on_time</span></code> corresponds to the time interval in milliseconds when the current is supplied to the impactor. Similarly, <code class="docutils literal notranslate"><span class="pre">off_time</span></code> – current is not supplied.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You might be curious why impactor timing is limited to 2ms. The reason lies in hardware. Solenoids are connected to the 24V line, thought most of the solenoids run at 12V. To mitigate the issue, the output voltage of the solenoid control pin is set to a software generated square wave with 50% duty cycle. The timer responsible for toggling the solenoid control pins runs with a resolution of 1ms, thus min period is 2ms.</p>
+<p>You might be curious why impactor timing is limited to 2ms. The reason lies in hardware. Solenoids are connected to the 24V line, thought most of the solenoids run at 12V. To mitigate the difference in voltages, the output voltage of the solenoid control pin is set to a software generated square wave with 50% duty cycle. The timer responsible for toggling the solenoid control pins runs with a resolution of 1ms, thus min period is 2ms.</p>
 </div>
-<div class="section" id="id7">
-<h3>Example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">solenoid</span> <span class="mi">0</span> <span class="mi">4</span> <span class="mi">20</span>  <span class="c1">## Configure channel 0 impactor on/off timings.</span>
-<span class="n">solenoid</span> <span class="mi">0</span> <span class="n">on</span>    <span class="c1">## Start the impactor at channel 0.</span>
-<span class="n">solenoid</span> <span class="mi">0</span> <span class="n">off</span>   <span class="c1">## Stop the impactor at channel 0.</span>
+<div class="section" id="id9">
+<h3>Example<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>solenoid <span class="m">0</span> <span class="m">4</span> <span class="m">20</span>      <span class="c1">## Configure channel 0 impactor on/off timings.</span>
+solenoid <span class="m">0</span> on        <span class="c1">## Start the impactor at channel 0.</span>
+solenoid <span class="m">0</span> off       <span class="c1">## Stop the impactor at channel 0.</span>
 <span class="c1">## Same applies to channel 1.</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h3>Peripherals<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>Peripherals<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>Command Handler: <code class="docutils literal notranslate"><span class="pre">HardwareDriver::solenoid(std::string</span> <span class="pre">arg)</span></code></p>
 <p><cite>[view source] &lt;https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L202&gt;</cite></p>
 <p>Two solenoid transistor switches are driven by gpio pins. TIM3 is used to handle on/off times with 2ms resolution.</p>
-<div class="section" id="id9">
-<h4>Mapping<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4>Mapping<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <div class="line-block">
 <div class="line">SOLENOID0_Pin – GPIO_PIN_12 – GPIOB</div>
 <div class="line">SOLENOID1_Pin – GPIO_PIN_13 – GPIOB</div>
@@ -436,28 +441,28 @@ servo <span class="m">77</span> <span class="c1">## Set servo to 77 deg position
 <div class="section" id="suction">
 <h2>suction<a class="headerlink" href="#suction" title="Permalink to this headline">¶</a></h2>
 <p>This command controls the suction motor power in percentage. The on/off option physically connects and disconnects the suction motor circuit. Setting power before enabling the suction circuitry will result in no action.</p>
-<div class="section" id="id10">
-<h3>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">suction</span> <span class="n">on</span>   <span class="c1">## Enable suction motor circuitry.</span>
-<span class="n">suction</span> <span class="mi">42</span>   <span class="c1">## Set power to 42%.</span>
-<span class="n">suction</span> <span class="mi">80</span>   <span class="c1">## Set power to 42%.</span>
-<span class="n">suction</span> <span class="mi">0</span>    <span class="c1">## Turn off suction, but keep the circuitry enabled.</span>
-<span class="n">suction</span> <span class="n">off</span>  <span class="c1">## Disable suction motor circuitry.</span>
+<div class="section" id="id12">
+<h3>Example<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>suction on   <span class="c1">## Enable suction motor circuitry.</span>
+suction <span class="m">42</span>   <span class="c1">## Set power to 42%.</span>
+suction <span class="m">80</span>   <span class="c1">## Set power to 42%.</span>
+suction <span class="m">0</span>    <span class="c1">## Turn off suction, but keep the circuitry enabled.</span>
+suction off  <span class="c1">## Disable suction motor circuitry.</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id11">
-<h3>Peripherals<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>Peripherals<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>Command Handler: <code class="docutils literal notranslate"><span class="pre">HardwareDriver::suction_power(std::string</span> <span class="pre">arg)</span></code></p>
 <p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L140">[view source]</a></p>
 <p>Suction motor driver is controlled by a 1kHz pwm signal generated on TIM3. A gpio pin is used to enable/disable the motor circuitry.</p>
 <div class="line-block">
-<div class="line">0 duty_cycle      – 0% power</div>
-<div class="line">0.5 duty_cycle    – 50% power</div>
-<div class="line">1 duty_cycle      – 100% power</div>
+<div class="line">0 duty_cycle          – 0% power</div>
+<div class="line">0.5 duty_cycle        – 50% power</div>
+<div class="line">1 duty_cycle          – 100% power</div>
 </div>
-<div class="section" id="id13">
-<h4>Mapping<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h4>Mapping<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <div class="line-block">
 <div class="line">SUCTION_PWM – TIM3_CH1 – GPIO_PIN_6 – GPIOB</div>
 <div class="line">SUCTION_EN_Pin – GPIO_PIN_4 – GPIOA</div>
@@ -468,14 +473,14 @@ servo <span class="m">77</span> <span class="c1">## Set servo to 77 deg position
 <div class="section" id="uart">
 <h2>uart<a class="headerlink" href="#uart" title="Permalink to this headline">¶</a></h2>
 <p>This command implements usb-to-uart forwarding feature, which allows to forward character strings from the host computer to the uart interface of the microcontroller, in this case connected to rs-232 and further Faulhaber motor drivers.</p>
-<div class="section" id="id14">
-<h3>Example<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>Example<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say we would like to load a custom configuration into the connected Faulhaber motor drivers.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>uart <span class="s2">&quot;1SP1000&quot;</span>   <span class="c1">## string &quot;1SP1000\r&quot; will be forwarded through uart.</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>uart <span class="s2">&quot;1SP1000&quot;</span>       <span class="c1">## string &quot;1SP1000\r&quot; will be forwarded through uart.</span>
 </pre></div>
 </div>
 <p>Faulhaber motor must have replied something, the reply forwarding is disabled by default. Use the following command to enable the forwarding.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>uart reply on    <span class="c1">## Enables reply forwarding.</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>uart reply on        <span class="c1">## Enables reply forwarding.</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -483,11 +488,11 @@ servo <span class="m">77</span> <span class="c1">## Set servo to 77 deg position
 <p>After issuing the command above everything received on UART will be forwarded to host through USB until <code class="docutils literal notranslate"><span class="pre">uart</span> <span class="pre">reply</span> <span class="pre">off</span></code> is issued.</p>
 </div>
 </div>
-<div class="section" id="id15">
-<h3>Peripherals<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>Peripherals<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>Command Handler: <code class="docutils literal notranslate"><span class="pre">HardwareDriver::uart(std::string</span> <span class="pre">arg)</span></code></p>
 <p><a class="reference external" href="https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L325">[view source]</a></p>
-<p><code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">FaulhaberComm</span></code> class implements helper methods to send and receive strings via USART1 peripheral. Please see <em>FaulhaberComm.cpp/h</em> for the further description.</p>
+<p><code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">FaulhaberComm</span></code> implements helper methods to send and receive strings via USART1 peripheral. Please see <em>FaulhaberComm.cpp/h</em> for the further description.</p>
 </div>
 </div>
 </div>

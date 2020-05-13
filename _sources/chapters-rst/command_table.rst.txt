@@ -90,7 +90,24 @@ Timer reload frequency is 50Hz (to match with servo control).
 
   TIM2 is shared between led drivers and servos.
 
+move
+====
 
+This command directly loads speeds into Faulhaber motor drivers.
+
+Example
+------- 
+
+.. code-block:: shell
+   
+   move 1000 1000	## Rotate both motors at 1000rpm.
+   move -1000 1000	## This will make the robot rotate around itself
+
+Peripherals
+-----------
+
+This command uses ``class FaulhaberComm`` underlying uart driver to communicate to the motors.
+   
 servo
 =====
 This command manipulates servo angles by adjusting duty cycle on the timer outputs. There are currently two channels allocated for 5V towermicro-like servos.
@@ -136,12 +153,12 @@ Once ``solenoid 0 on`` command has been issued, the impactor at channel 0 will c
 
 .. Note::
 
- You might be curious why impactor timing is limited to 2ms. The reason lies in hardware. Solenoids are connected to the 24V line, thought most of the solenoids run at 12V. To mitigate the issue, the output voltage of the solenoid control pin is set to a software generated square wave with 50% duty cycle. The timer responsible for toggling the solenoid control pins runs with a resolution of 1ms, thus min period is 2ms.
+ You might be curious why impactor timing is limited to 2ms. The reason lies in hardware. Solenoids are connected to the 24V line, thought most of the solenoids run at 12V. To mitigate the difference in voltages, the output voltage of the solenoid control pin is set to a software generated square wave with 50% duty cycle. The timer responsible for toggling the solenoid control pins runs with a resolution of 1ms, thus min period is 2ms.
 
 Example
 -------
 
-.. code-block::
+.. code-block:: shell
 
    solenoid 0 4 20	## Configure channel 0 impactor on/off timings.
    solenoid 0 on	## Start the impactor at channel 0.
@@ -171,7 +188,7 @@ This command controls the suction motor power in percentage. The on/off option p
 Example
 -------
 
-.. code-block::
+.. code-block:: shell
   
    suction on	## Enable suction motor circuitry.
    suction 42	## Set power to 42%.
@@ -229,4 +246,4 @@ Command Handler: ``HardwareDriver::uart(std::string arg)``
 
 `[view source] <https://github.com/ccny-ros-pkg/WindRider-II_firmware/blob/master/Src/HardwareDriver.cpp#L325>`_
 
-``class FaulhaberComm`` class implements helper methods to send and receive strings via USART1 peripheral. Please see *FaulhaberComm.cpp/h* for the further description.
+``class FaulhaberComm`` implements helper methods to send and receive strings via USART1 peripheral. Please see *FaulhaberComm.cpp/h* for the further description.

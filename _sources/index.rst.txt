@@ -3,7 +3,7 @@
 
 WindRider Firmware Guide
 ========================
-This document is a comprehensive guide to installation and development of Wind Rider Firmware. The project is based on STM32F103C8T6 microcontroller and STM's official peripheral library. Download this tutorial as pdf.
+This document is a comprehensive guide to installation and development of Wind Rider Firmware. The project is based on STM32F103C8T6 microcontroller and STM's official peripheral library. Download this tutorial as `pdf <https://github.com/ccny-ros-pkg/WindRider-II_firmware/windrider_firmware.pdf>`_.
 
 .. toctree::
    :maxdepth: 2
