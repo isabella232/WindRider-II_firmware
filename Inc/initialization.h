@@ -1,3 +1,11 @@
+//! Initialization file.
+/**
+ * @file      initialization.h
+ * @brief     This file contains initialization of pheripherals shared between different pcb modules.
+ * @author    Stanislav Sotnikov (stanislav.sotnikov145@gmail.com)
+ * TODO:      Integrate this file with the HardwareDriver::initialize()
+ *
+ */
 #ifndef __INITIALIZATION_H
 #define __INITIALIZATION_H
 

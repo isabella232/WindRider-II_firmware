@@ -53,7 +53,7 @@ namespace HardwareDriver {
                         solenoid.initialize();
                     });
 
-        //FaulhaberComm::initialize();
+        FaulhaberComm::initialize_hardware();
     }
 
     //! method error
@@ -64,8 +64,8 @@ namespace HardwareDriver {
     */ 
     void error(const std::string error){
 
-        UsbComm::usb_send(&error);
-        UsbComm::usb_send(&error_reset);
+        UsbComm::usb_send(error);
+        UsbComm::usb_send(error_reset);
         
         // Kills program execution.
         throw std::runtime_error("Oops...");
@@ -83,87 +83,93 @@ namespace HardwareDriver {
     /**
     * @brief Handler for servo command.
     */ 
-    void servo_angle(std::string arg){
+    void servo_angle(const std::vector<std::string> &args){
 
-        const auto separator = arg.find_first_of(' ');
-
-        if(separator == std::string::npos){
-            status = invalid_argument;
-            return;
-        }
-
-        auto channel = 0, angle = 0;
-
-        // Returns zero on failure
-        if(std::isdigit(arg.at(0)) and std::isdigit(arg.at(separator + 1))){
-
-            channel = std::stoul(arg.substr(0, separator));
-            angle = std::stoul(arg.substr(separator));
-        }
-        else{
+        // Sainity checks.
+        if(args.size() != 2){
 
             status = invalid_argument;
             return;
         }
+        
+        //! Check if all of the characters in the args are digits
+        /**
+         * Ideally std::stoul() would throw an exception,
+         * though we are using the nano version of C++ stl,
+         * which does not support exceptions, a thrown exception will
+         * end up in the terminate() handler 
+         */ 
+        auto first_arg_is_digit = std::all_of(args.front().begin(), 
+                                              args.front().end(), 
+                                              static_cast<int(*)(int)>(std::isdigit));
 
-        if(0 <= angle and angle <= 180){ 
+        auto second_arg_is_digit = std::all_of(args.at(1).begin(), 
+                                              args.at(1).end(), 
+                                              static_cast<int(*)(int)>(std::isdigit));
 
-            // Enable channels
-            TIM_OC_InitTypeDef sConfigOC = {};
+        if(not first_arg_is_digit and not second_arg_is_digit){
 
-            sConfigOC.OCMode = TIM_OCMODE_PWM1;
-            sConfigOC.Pulse = static_cast<uint16_t>( htim2.Init.Period*(0.05 + 0.05*angle/180.0) );
-            sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH; 
-            sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+            status = invalid_argument;
+            return;
+        }
 
-            if(channel == 0){
-                HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3);
-                HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-            }
-            else if(channel == 1){
-                HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4);
-                HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
-            }
-            else
-                status = arguments_out_of_range;
-            
-            status = response_ok;
+        auto channel = std::stoul(args.front());
+        auto angle = std::stoul(args.at(1));
+
+        if(not (0 <= angle <= 180 and 0 <= channel <= 1)){ 
+
+            status = arguments_out_of_range;
+            return;
+        }
+
+        // Enable channels
+        TIM_OC_InitTypeDef sConfigOC = {};
+
+        sConfigOC.OCMode = TIM_OCMODE_PWM1;
+        sConfigOC.Pulse = static_cast<uint16_t>( htim2.Init.Period*(0.05 + 0.05*angle/180.0) );
+        sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH; 
+        sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+
+        if(channel == 0){
+            HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3);
+            HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+        }
+        else if(channel == 1){
+            HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4);
+            HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
         }
         else
             status = arguments_out_of_range;
+        
+        status = response_ok;
     }
 
     //! method suction_power
     /**
     * @brief Handler for suction command.
     */ 
-    void suction_power(std::string arg){
+    void suction_power(const std::vector<std::string> &args){
         
+        if(args.size() != 1){
+
+            status = invalid_argument;
+            return;
+        }
+
+        // on/off    
+        if(args.front() == "on\r"){
+            HAL_GPIO_WritePin(SUCTION_EN_GPIO_Port, SUCTION_EN_Pin, GPIO_PIN_RESET);
+            status = response_ok;
+            return;
+        }
+
         TIM_OC_InitTypeDef sConfigOC = {0};
 
         sConfigOC.OCMode = TIM_OCMODE_PWM1;
         sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
         sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 
-
-        if(arg[0] == '0'){
-
-            sConfigOC.Pulse = 0;
-            HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
-            HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-
-            status = response_ok;
-
-            return;
-        }
-
-        // on/off    
-        if(arg == "on\r"){
-            HAL_GPIO_WritePin(SUCTION_EN_GPIO_Port, SUCTION_EN_Pin, GPIO_PIN_RESET);
-            status = response_ok;
-            return;
-        }
-        else if(arg == "off\r"){
+        if(args.front() == "off\r"){
 
             // PWM to Zero
             sConfigOC.Pulse = 0;
@@ -176,146 +182,161 @@ namespace HardwareDriver {
             return;
         }
         
-        auto power = 0;
+        auto first_arg_is_digit = std::all_of(args.front().begin(), 
+                                        args.front().end(), 
+                                        static_cast<int(*)(int)>(std::isdigit));
 
-        if(std::isdigit(arg.at(0)))
-            power = std::stoul(arg);
+        if(not first_arg_is_digit) {
 
-        else{
-            
-        }
-        
-        if(0 <= power and power <= 100){
-            sConfigOC.Pulse = static_cast<uint16_t>(htim3.Init.Period*power/100.0);
-            HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
-            HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-
-            status = response_ok;
-        }
-
-        else{
             status = invalid_argument;
+            return;
         }
+        auto power = std::stoul(args.front());
+        
+        if(not (0 <= power <= 100)){
+
+            status = arguments_out_of_range;
+            return;
+        }
+
+        sConfigOC.Pulse = static_cast<uint16_t>(htim3.Init.Period*power/100.0);
+        HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
+        HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
+        status = response_ok;
     }
 
     // This function parses command line arguments for solenoid token
-    void solenoid(std::string arg){
+    void solenoid(const std::vector<std::string> &args) {
 
-        const auto separator1 = arg.find_first_of(' ');
-
-        // At least 2 arguments required.
-        if(separator1 == std::string::npos){
+        // Sainity checks.
+        if(args.size() == 1 or args.size() > 3){
+ 
             status = invalid_argument;
             return;
         }
 
-        auto separator2 = arg.substr(separator1 + 1).find_first_of(' ');
+        auto first_arg_is_digit = std::all_of(args.front().begin(), 
+                                        args.front().end(), 
+                                        static_cast<int(*)(int)>(std::isdigit));
 
-        // Figure out which channel.
-        auto channel = 0;
-        if(std::isdigit(arg.at(0))){
+        if(not first_arg_is_digit) {
 
-            channel = std::stoul(arg.substr(0, separator1));
+            status = invalid_argument;
+            return;
+        }
+ 
+        auto channel = std::stoul(args.front());
 
-            if(channel >= solenoids.size()){
+        if(channel >= solenoids.size()){
+            
+            status = arguments_out_of_range;
+            return;
+        }
+
+        if(args.at(1) == "off"){
+            
+            solenoids.at(channel).off();
+            return;
+        }
+
+        if(args.at(1) == "on"){
+
+            solenoids.at(channel).on();
+            return;
+        }
+
+        auto second_arg_is_digit = std::all_of(args.at(1).begin(), 
+                                              args.at(1).end(), 
+                                              static_cast<int(*)(int)>(std::isdigit));
+
+        auto third_arg_is_digit = std::all_of(args.at(2).begin(), 
+                                              args.at(2).end(), 
+                                              static_cast<int(*)(int)>(std::isdigit));
+
+        if(not second_arg_is_digit or not third_arg_is_digit){
                 
-                status = arguments_out_of_range;
-                return;
-            }
-        }
-        else{
-
             status = invalid_argument;
             return;
         }
 
-        if(separator2 == std::string::npos){
+        auto off_time_ms = std::stoul(args.at(1));
+        auto on_time_ms = std::stoul(args.at(2));
 
-            const auto state = arg.substr(separator1 + 1);
-
-            if(state == "off\r")
-                solenoids.at(channel).off();
-        }
-        else{
-            separator2 += separator1 + 1;
-
-            auto on_time_ms = 0, off_time_ms = 0;
-
-            if(std::isdigit(arg.at(separator1 + 1)) and std::isdigit(arg.at(separator2 + 1))){
-
-                off_time_ms = std::stoul(arg.substr(separator1, separator2 - separator1));
-                on_time_ms = std::stoul(arg.substr(separator2));
-            }
-            else{
-
-                status = invalid_argument;
-                return;
-            }
-
-            solenoids.at(channel).on(off_time_ms, on_time_ms);
-        }
+        solenoids.at(channel).configure_timings(off_time_ms, on_time_ms);
 
         status = response_ok;
     }
 
     // Handler for uart command.
-    void led(std::string arg){
+    void led(const std::vector<std::string> &args){
 
-        const auto separator = arg.find_first_of(' ');
-
-        if(separator == std::string::npos){
+        // Sainity checks.
+        if(args.size() != 2){
+ 
             status = invalid_argument;
             return;
         }
 
-        auto channel = 0, current = 0;
-
-        if(std::isdigit(arg.at(0)) and std::isdigit(arg.at(separator + 1))){
-
-            channel = std::stoul(arg.substr(0, separator));
-            current = std::stoul(arg.substr(separator));
+        // Check if the first arg is "on"
+        if(args.front() == "on"){
+            // TODO: Turn on all led as if they were objects..
         }
-        else {
+        
+        //! Check if all of the characters in the args are digits
+        /**
+         * Ideally std::stoul() would throw an exception,
+         * though we are using the nano version of C++ stl,
+         * which does not support exceptions, a thrown exception will
+         * end up in the terminate() handler 
+         */ 
+        auto first_arg_is_digit = std::all_of(args.front().begin(), 
+                                              args.front().end(), 
+                                              static_cast<int(*)(int)>(std::isdigit));
 
+        auto second_arg_is_digit = std::all_of(args.at(1).begin(), 
+                                              args.at(1).end(), 
+                                              static_cast<int(*)(int)>(std::isdigit));
+
+        if(not first_arg_is_digit and not second_arg_is_digit){
+            
             status = invalid_argument;
             return;
         }
-        
-        
+ 
+        // Convert argument strings to integers.
+        auto channel = std::stoul(args.front());
+        auto current = std::stoul(args.at(1));
+
         // Check if current value is sane.
-        if(0 <= current <= 1500){
+        if(not (0 <= current <= 1500 and 0 <= channel <= 1)){
 
-            // Enable channels
-            TIM_OC_InitTypeDef sConfigOC = {};
-
-            sConfigOC.OCMode = TIM_OCMODE_PWM1;
-            sConfigOC.Pulse = static_cast<uint16_t>( htim2.Init.Period*( current/1500.0 ) );
-            sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH; 
-            sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-
-            if(channel == 0){
-
-                HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1);
-                HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-            }
-            else if(channel == 1){
-                
-                HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2);
-                HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-            }
-            status = response_ok;
-            return;
-        }
-        else{
             status = arguments_out_of_range;
             return;
         }
 
-        status = invalid_argument;
+        // Enable channels
+        TIM_OC_InitTypeDef sConfigOC = {};
+
+        sConfigOC.OCMode = TIM_OCMODE_PWM1;
+        sConfigOC.Pulse = static_cast<uint16_t>( htim2.Init.Period*( current/1500.0 ) );
+        sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH; 
+        sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+
+        if(channel == 0){
+
+            HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1);
+            HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+        }
+        else if(channel == 1){
+            
+            HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2);
+            HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+        }
+        status = response_ok;
     }
 
-    
-    void suction_current(std::string arg){
+    void suction_current(const std::vector<std::string> &args){
 
         const auto adc_value = HAL_ADC_GetValue(&hadc1);
 
@@ -323,85 +344,108 @@ namespace HardwareDriver {
     }
 
     // Handler for uart command.
-    void uart(std::string arg){
-
-        const auto separator = arg.find_first_of(' ');
-
-        if(separator == std::string::npos){
+    void uart(const std::vector<std::string> &args){
+       
+       // Sainity checks.
+        if(args.size() != 2){
+ 
             status = invalid_argument;
             return;
         }
 
-        else if(arg.substr(0, separator) == "forward"){
+        if(args.front() == "forward"){
             
-            FaulhaberComm::send(arg.substr(separator + 1));
+            FaulhaberComm::send(args.at(1));
             status = response_ok;
             return;
         }
-        else if(arg.substr(0, separator) == "reply"){
+        else if(args.front() == "reply"){
 
-            if(arg.substr(separator + 1) == "on\r")
+            if(args.at(1) == "on")
                 FaulhaberComm::enable_forwarding();
 
-            else if(arg.substr(separator + 1) == "off\r")
+            else if(args.at(1) == "off")
                 FaulhaberComm::disable_forwarding();
-
+            
             else{
 
                 status = invalid_argument;
                 return;
             }
+
             status = response_ok;
         }
         else
             status = invalid_argument;
     }
 
-    // Handler for left command.
-    void left(std::string arg){
+    void move(const std::vector<std::string> &args){
 
-        if(std::isdigit(arg.at(0)) or arg.at(0) == '-'){
-
-            const auto velocity = std::stoi(arg);
-
-            left_motor.set_velocity(velocity);
-
-            status = response_ok;
-        }
-        else
+        // Sainity checks.
+        if(args.size() != 2){
+ 
             status = invalid_argument;
-        
+            return;
+        }
+
+        const auto first_arg_is_digit = std::all_of(args.front().begin(), 
+                                                    args.front().end(), 
+                                                    [](char c){
+
+                                                        return std::isdigit(c) or c == '-';
+                                                    });
+
+        const auto second_arg_is_digit = std::all_of(args.at(1).begin(), 
+                                                     args.at(1).end(), 
+                                                     [](char c){
+                                                  
+                                                        return std::isdigit(c) or c == '-';
+                                                    });
+
+        if(not first_arg_is_digit or not second_arg_is_digit){
+
+            status = invalid_argument;
+            return;
+        }
+
+        const auto right_velocity = std::stoi(args.front());
+        const auto left_velocity = std::stoi(args.at(1));
+
+        right_motor.set_velocity(right_velocity);
+        left_motor.set_velocity(left_velocity);
+
+        status = response_ok;
     }
 
-    // Handler for right command.
-    void right(std::string arg){
+    void sync_straight(const std::vector<std::string> &args){
 
-        if(std::isdigit(arg.at(0)) or arg.at(0) == '-'){
-
-            const auto velocity = std::stoi(arg);
-
-            right_motor.set_velocity(velocity);
-
-            status = response_ok;
-        }
-        else
+        // Sainity checks.
+        if(args.size() != 1){
+ 
             status = invalid_argument;
+            return;
+        }
+
+        const auto first_arg_is_digit = std::all_of(args.front().begin(), 
+                                              args.front().end(), 
+                                              [](char c){
+
+                                                  return std::isdigit(c) or c == '-';
+                                              });
+        if(not first_arg_is_digit){
+
+            status = invalid_argument;
+            return;
+        }
+
+        const auto velocity = std::stoi(args.front());
+
+        FaulhaberComm::write_sync("V" + std::to_string(velocity));
+
+        status = response_ok;
 
     }
 
-    void straight(std::string arg){
 
-        if(std::isdigit(arg.at(0)) or arg.at(0) == '-'){
-
-            const auto velocity = std::stoi(arg);
-
-            FaulhaberComm::write_sync("V" + std::to_string(velocity));
-
-            status = response_ok;
-        }
-        else
-            status = invalid_argument;
-
-    }
 }
 

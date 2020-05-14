@@ -49,17 +49,26 @@ void Solenoid::initialize(void){
         __HAL_TIM_ENABLE_IT(&htim3, TIM_IT_UPDATE);
 }
 
+void Solenoid::configure_timings(uint16_t off_time_ms, uint16_t on_time_ms){
+    
+    if(off_time_ms > 2 and on_time_ms > 2){
+        
+        _off_time_ms = off_time_ms;
+        _on_time_ms = on_time_ms;
+    }
+    
+}
+
 //! method on
 /**
 * @brief Starts the impactor with given pulse lenth and period.
 * @param off_time_ms Delay between pulses in milliseconds.
 * @param on_time_ms Delay of the impact puse in milliseconds.
 */ 
-void Solenoid::on(uint16_t off_time_ms, uint16_t on_time_ms){
+void Solenoid::on(void){
     
-    if(_initialized){
-        _off_time_ms = off_time_ms;
-        _on_time_ms = on_time_ms;
+    if(_initialized and _on_time_ms and _off_time_ms){
+        
         _objects.insert(this);
     }
         

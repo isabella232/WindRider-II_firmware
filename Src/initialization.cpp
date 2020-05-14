@@ -1,6 +1,7 @@
 #include "initialization.h"
 #include "HardwareDriver.h"
 #include "FaulhaberComm.h"
+#include "usb_device.h"
 
 // Some global Variables
 ADC_HandleTypeDef hadc1;
@@ -24,6 +25,7 @@ void Initialize_Peripherals(void){
   
   HardwareDriver::initialize();
 
+  MX_USB_DEVICE_Init();
 }
 /**
   * @brief System Clock Configuration
