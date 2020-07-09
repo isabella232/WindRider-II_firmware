@@ -25,24 +25,16 @@ int main(void){
   while(true)
   {
     // If there are commands in the usb queue -- execute them.  
-    if(UsbComm::usb_queue.get_queue_size() != 0){
+    if(UsbComm::usb_queue.get_queue_size()){
 
         const auto response = CommandParser::execute(UsbComm::usb_queue.get_next_cmd());
 
         // Respond to the command
         UsbComm::usb_send(response);
-        
+
         // Remove pending command from the queue
         UsbComm::usb_queue.free_pending_cmd();
     }
-
-    //const std::string hello = "Commands: " + std::to_string(FaulhaberComm::feedback_queue.get_queue_size()) + "\n";
-    //FaulhaberComm::send("Hello World!\n");
-
-    //FaulhaberComm::send(hello);
-    //FaulhaberComm::process_feedback();
-    //HAL_Delay(1000);
-    
   }
 }
 

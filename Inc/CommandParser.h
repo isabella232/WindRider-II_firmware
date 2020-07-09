@@ -64,7 +64,7 @@ namespace CommandParser{
      */ 
     const std::string execute(const std::string &command);
 
-    void parse_args_recursive(const std::string args_string, std::vector<std::string> &args_vector);
+    void parse_tokens(const std::string &args_string, std::vector<std::string> &args_vector);
 
     // Status strings.
     const std::string unknown_command = "unknown command\n\r";

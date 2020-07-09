@@ -53,7 +53,7 @@ namespace HardwareDriver {
                         solenoid.initialize();
                     });
 
-        FaulhaberComm::initialize_hardware();
+        //FaulhaberComm::initialize_hardware();
     }
 
     //! method error
@@ -157,7 +157,7 @@ namespace HardwareDriver {
         }
 
         // on/off    
-        if(args.front() == "on\r"){
+        if(args.front() == "on"){
             HAL_GPIO_WritePin(SUCTION_EN_GPIO_Port, SUCTION_EN_Pin, GPIO_PIN_RESET);
             status = response_ok;
             return;
@@ -169,7 +169,7 @@ namespace HardwareDriver {
         sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
         sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 
-        if(args.front() == "off\r"){
+        if(args.front() == "off"){
 
             // PWM to Zero
             sConfigOC.Pulse = 0;
@@ -243,6 +243,12 @@ namespace HardwareDriver {
         if(args.at(1) == "on"){
 
             solenoids.at(channel).on();
+            return;
+        }
+
+        if(args.size() == 2){
+            
+            status = invalid_argument;
             return;
         }
 

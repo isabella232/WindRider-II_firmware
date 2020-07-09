@@ -30,12 +30,13 @@ class CommandQueue{
      * @param Buf Buffer of data to be received.
      * @param Len Number of data received (in bytes)
      */
-    void insert_received_elements(const typename Container::value_type* Buf, const uint32_t *Len){
+    void insert_received_elements(const typename Container::value_type* Buf, const uint32_t* const Len){
 
         for(uint32_t i=0; i<*Len; ++i){
             
             if(_command_queue.empty() or _command_queue.back().back() == control_element)
                 _command_queue.push_back(std::string(1, Buf[i]));
+
             else{
                 _command_queue.back().push_back(Buf[i]);
 
@@ -50,10 +51,11 @@ class CommandQueue{
      * @brief Returns the current usb queue size.
      * @return usb queue size
      */
-    size_t get_queue_size(void){
+    const size_t get_queue_size(void){
 
-        if(!_command_queue.empty() and _command_queue.back().back() != control_element)
-            return _command_queue.size() - 1;
+        if((not _command_queue.empty()) and (_command_queue.back().back() != control_element))
+            return 0;
+            //return _command_queue.size() - 1;
         
         return _command_queue.size();
     };
