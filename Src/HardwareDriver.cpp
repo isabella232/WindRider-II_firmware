@@ -36,6 +36,8 @@ namespace HardwareDriver {
 
     FaulhaberComm right_motor(1), left_motor(2);
 
+    std::array<uint16_t, 2> led_current = {0, 0};
+
     // Windrider is currently capable of driving 2 solenoid channels.
     std::array<Solenoid, 2> solenoids = {
         Solenoid(SOLENOID_GPIO_Port, SOLENOID_Pin),
@@ -52,8 +54,8 @@ namespace HardwareDriver {
                     [](Solenoid &solenoid){
                         solenoid.initialize();
                     });
-
-        //FaulhaberComm::initialize_hardware();
+        // Faulhaber control is implemented from the host computer.
+        // FaulhaberComm::initialize_hardware();
     }
 
     //! method error
@@ -283,11 +285,6 @@ namespace HardwareDriver {
             status = invalid_argument;
             return;
         }
-
-        // Check if the first arg is "on"
-        if(args.front() == "on"){
-            // TODO: Turn on all led as if they were objects..
-        }
         
         //! Check if all of the characters in the args are digits
         /**
@@ -299,46 +296,83 @@ namespace HardwareDriver {
         auto first_arg_is_digit = std::all_of(args.front().begin(), 
                                               args.front().end(), 
                                               static_cast<int(*)(int)>(std::isdigit));
+        if(not first_arg_is_digit){
+            
+            status = invalid_argument;
+            return;
+        }
+
+        // Convert argument strings to integers.
+        auto channel = std::stoul(args.front());
+
+        if(not (0 <= channel <= 1)){
+
+            status = arguments_out_of_range;
+            return;
+        }
+         
+
+        if(args.at(1) == "off"){
+
+            if(channel == 0)
+                HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_1);
+
+            else if(channel == 1)
+                HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_2);
+
+            status = response_ok;
+            return;
+        }
+        if(args.at(1) == "on"){
+            
+            if(led_current.at(channel) > 0){
+            
+                if(channel == 0)
+                    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+                else if(channel == 1)
+                    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+            }
+            status = response_ok;
+            return;
+        }
 
         auto second_arg_is_digit = std::all_of(args.at(1).begin(), 
                                               args.at(1).end(), 
                                               static_cast<int(*)(int)>(std::isdigit));
 
-        if(not first_arg_is_digit and not second_arg_is_digit){
+        if(not second_arg_is_digit){
             
             status = invalid_argument;
             return;
         }
  
         // Convert argument strings to integers.
-        auto channel = std::stoul(args.front());
         auto current = std::stoul(args.at(1));
 
         // Check if current value is sane.
-        if(not (0 <= current <= 1500 and 0 <= channel <= 1)){
+        if(not (0 <= current <= 1500)){
 
             status = arguments_out_of_range;
             return;
         }
 
+        led_current.at(channel) = current;
+
         // Enable channels
         TIM_OC_InitTypeDef sConfigOC = {};
 
         sConfigOC.OCMode = TIM_OCMODE_PWM1;
-        sConfigOC.Pulse = static_cast<uint16_t>( htim2.Init.Period*( current/1500.0 ) );
+        sConfigOC.Pulse = static_cast<uint16_t>( htim2.Init.Period*( led_current.at(channel)/1500.0 ) );
         sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH; 
         sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-
-        if(channel == 0){
-
+        
+        if(channel == 0)
             HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1);
-            HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-        }
-        else if(channel == 1){
-            
+
+        if(channel == 1)
             HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2);
-            HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-        }
+
         status = response_ok;
     }
 
