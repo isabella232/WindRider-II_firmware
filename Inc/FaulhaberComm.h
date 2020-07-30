@@ -15,7 +15,7 @@
 #include "initialization.h"
 #include "CommandQueue.h"
 
-//! Faulhaber Communication class.
+//! Class FaulhaberComm.
 /**
  *  @brief This helper class serves as an abstraction layer for communication with Faulhaber motor drivers.
  *         An object of this class represents a seperate motor driver on rs-232 network.

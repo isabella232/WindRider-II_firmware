@@ -9,6 +9,7 @@
 #define COMMANDPARSER_H
 
 #include <string>
+#include <vector>
 #include <algorithm>
 #include <functional>
 
@@ -28,7 +29,7 @@ namespace CommandParser{
          * @param help  Help string.
          * @param cmd_handler Function to be executed when command with the token is called.
          */ 
-        Cmd(std::string token, std::string help, std::function<void(std::string)> cmd_handler):
+        Cmd(std::string token, std::string help, const std::function<void(const std::vector<std::string>&)> cmd_handler):
             token(token),help(help),cmd_handler(cmd_handler){};
 
         //! execute method.
@@ -36,9 +37,9 @@ namespace CommandParser{
          * @brief Public method to call the command handler.
          * @param arg Argument string passed to the command handler. 
          */ 
-        void execute(std::string arg){
+        void execute(const std::vector<std::string> &args) const{
 
-            cmd_handler(arg);
+            cmd_handler(args);
         };
         
         const std::string token; // Command token.
@@ -47,7 +48,7 @@ namespace CommandParser{
         private:
 
         // Command Handler function pointer.
-        const std::function<void(std::string)> cmd_handler;
+        const std::function<void(const std::vector<std::string>&)> cmd_handler;
     };
 
     //! Execute method.
@@ -63,10 +64,14 @@ namespace CommandParser{
      */ 
     const std::string execute(const std::string &command);
 
+    void parse_tokens(const std::string &args_string, std::vector<std::string> &args_vector);
+
     // Status strings.
     const std::string unknown_command = "unknown command\n\r";
     const std::string invalid_command = "invalid command enter '?' for help\n\r";
     const std::string help = "CCNY Robotics Lab Welcomes You, human..\n\r";
+
+    const auto max_noof_args = 3;
 
 };
 

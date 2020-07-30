@@ -13,6 +13,7 @@
 #include <array>
 #include <deque>
 #include <string>
+#include <vector>
 #include <algorithm>
 
 namespace HardwareDriver {
@@ -32,23 +33,22 @@ namespace HardwareDriver {
     * @brief Handler for servo command. Sets servo to a given angle.
     * @param arg Argument string. Comes after token.
     */ 
-    void servo_angle(std::string arg);
+    void servo_angle(const std::vector<std::string> &args);
 
     //! method suction_power
     /**
     * @brief Handler for suction command. Adjusts suction power [0-100]
     * @param arg Argument string. Comes after token.
     */ 
-    void suction_power(std::string arg);
+    void suction_power(const std::vector<std::string> &args);
 
 
-    void solenoid(std::string arg);
-    void led(std::string arg);
-    void suction_current(std::string arg);
-    void uart(std::string arg);
-    void left(std::string arg);
-    void right(std::string arg);
-    void straight(std::string arg);
+    void solenoid(const std::vector<std::string> &args);
+    void led(const std::vector<std::string> &args);
+    void suction_current(const std::vector<std::string> &args);
+    void uart(const std::vector<std::string> &args);
+    void sync_straight(const std::vector<std::string> &args);
+    void move(const std::vector<std::string> &args);
     
     //! method error
     /**

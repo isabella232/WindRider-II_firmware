@@ -2,24 +2,23 @@
 /**
  * @file      CommandParser.cpp
  * @author    Stanislav Sotnikov (stanislav.sotnikov145@gmail.com)
- *
  */
 
 #include "CommandParser.h"
 #include "HardwareDriver.h"
 
+//! Namespace CommandParser
 namespace CommandParser{
 
     // Command table. Please keep alphabetical order.
     // TODO: Figure out const correctness
-    std::array<Cmd, 9> command_table = {
+    const std::array<Cmd, 8> command_table = {
         Cmd("current", " \t-- print suction motor current:\n\r\t\t\t\t1) current", HardwareDriver::suction_current),
         Cmd("led", " \t\t-- set led current:\n\r\t\t\t\t1) led [#channel 0-3] [current 0-1500] -- set led current in mA", HardwareDriver::led),
-        Cmd("left", "\t\t-- set left motor speed:\n\r\t\t\t\t1) left [speed] -- speed to be loaded into the left motor driver.", HardwareDriver::led),
-        Cmd("right", "\t\t-- set right motor speed:\n\r\t\t\t\t1) right [speed] -- speed to be loaded into the right motor driver.", HardwareDriver::led),
+        Cmd("move", "\t\t-- asynchronously set motor speed:\n\r\t\t\t\t1) move [left speed] [right speed] -- speed to be loaded into the motor drivers.", HardwareDriver::move),
         Cmd("servo", " \t\t-- set servo angle:\n\r\t\t\t\t1) servo [#channel 0-1] [0,180]", HardwareDriver::servo_angle),
         Cmd("solenoid", " \t-- manage impactor solenoids:\n\r\t\t\t\t1) solenoid [#channel] [off]\n\r\t\t\t\t2) solenoid [#channel] [on_time_ms] [off_time_ms]", HardwareDriver::solenoid),
-        Cmd("straight", "\t-- set and synchronize motor speed:\n\r\t\t\t\t1) straight [speed] -- speed to be loaded into both right and left motor driver synchronously.", HardwareDriver::led),
+        Cmd("straight", "\t-- set and synchronize motor speed:\n\r\t\t\t\t1) straight [speed] -- speed to be loaded into both right and left motor driver synchronously.", HardwareDriver::sync_straight),
         Cmd("suction", " \t-- manage suction:\n\r\t\t\t\t1) suction [on/off] -- enable disable suction\n\r\t\t\t\t2) suction [0-100] -- set suction power", HardwareDriver::suction_power),
         Cmd("uart", "\t\t-- uart forwarding:\n\r\t\t\t\t1) uart [forward] [\"Command\"] -- forward a string via uart\n\r\t\t\t\t2) uart [reply] [on/off] -- print incoming feedback", HardwareDriver::uart)
     };
@@ -44,31 +43,47 @@ namespace CommandParser{
             return help_str;
         }
 
-        // Find the first space to seperate a token.
-        auto separator = command.find_first_of(' ');
+        // Parse tokens into a vector
+        std::vector<std::string> tokens = {};
 
-        // If there is no space, assume command has no arguments.
-        if(separator == std::string::npos)
-            separator = command.size()-1;
+        parse_tokens(command, tokens);
 
-        // Lookup the given token in the command table.
+        // Lookup the first positioned token in the command table.
         // In case found, returns a poiter to the corresponding command container.
         const auto executable = std::find_if(command_table.begin(), 
                                              command_table.end(), 
-                                             [&command, &separator](const Cmd &cmd_table_entry){
+                                             [&tokens](const Cmd &cmd_table_entry){
 
-                                    return cmd_table_entry.token == command.substr(0, separator);
+                                    return cmd_table_entry.token == tokens.front();
                                 });
+
+        tokens.erase(tokens.begin());
 
         // Check if given token exists in the command table.
         if(executable == command_table.end())
             return unknown_command;
 
         // Execute the corresponding command from the table.
-        executable->execute(command.substr(separator + 1));
-
+        executable->execute(tokens);
+  
         // Return status of the executed command.
         return HardwareDriver::get_status();
     }
 
+    void parse_tokens(const std::string& args_string, std::vector<std::string> &args_vector){
+
+        std::string::size_type last_pos = 0;
+
+        while(last_pos < args_string.size()){
+
+            auto separator = args_string.find_first_of(" ", last_pos);
+
+            if(separator == std::string::npos)
+                separator = args_string.size()-1;
+
+            args_vector.push_back(args_string.substr(last_pos, separator-last_pos));
+            
+            last_pos = separator + 1;
+        }
+    }
 }

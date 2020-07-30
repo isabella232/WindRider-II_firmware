@@ -183,7 +183,7 @@ void FaulhaberComm::disable_forwarding(void){
 void FaulhaberComm::forward_reply(const std::string reply) {
 
     const auto uart_says = "uart: " + reply + "\n\r";
-    UsbComm::usb_send(&uart_says);
+    UsbComm::usb_send(uart_says);
 };
 
 //! function write_and_return.

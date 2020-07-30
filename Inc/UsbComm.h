@@ -23,7 +23,7 @@ class UsbComm {
      * @brief This function sends a string over USB virtual com port.
      * @param str_to_send Pointer to the string to be sent.
      */
-    static void usb_send(const std::string *str_to_send);
+    static void usb_send(const std::string &str_to_send);
 
     // A Queue of commands seperated by '\r'
     static CommandQueue<std::string, '\r'> usb_queue;

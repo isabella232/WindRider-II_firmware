@@ -36,7 +36,8 @@ class Solenoid{
      * @brief Initializes gpio hardware to drive solenoids.
      */
     void initialize(void);
-    void adjust(void);
+
+    void configure_timings(uint16_t off_time_ms, uint16_t on_time_ms);
 
     //! method on
     /**
@@ -44,7 +45,7 @@ class Solenoid{
     * @param off_time_ms Delay between pulses in milliseconds.
     * @param on_time_ms Delay of the impact puse in milliseconds.
     */ 
-    void on(uint16_t off_time_ms, uint16_t on_time_ms);
+    void on(void);
 
     //! method off
     /**
