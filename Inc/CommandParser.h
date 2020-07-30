@@ -64,7 +64,15 @@ namespace CommandParser{
      */ 
     const std::string execute(const std::string &command);
 
-    void parse_tokens(const std::string &args_string, std::vector<std::string> &args_vector);
+
+    //! Parse Tokens method
+    /**
+     * @brief Tokenizes a string. Pushes the tokens onto args_vector.
+     * @param arg_string String to be tokenized.
+     * @param args_vector Output vector of tokens.
+     * @param delimiter Delimiter character (space by default).
+     */
+    void parse_tokens(const std::string &args_string, std::vector<std::string> &args_vector, const char delimiter=' ');
 
     // Status strings.
     const std::string unknown_command = "unknown command\n\r";
@@ -72,7 +80,6 @@ namespace CommandParser{
     const std::string help = "CCNY Robotics Lab Welcomes You, human..\n\r";
 
     const auto max_noof_args = 3;
-
 };
 
 #endif //COMMANDPARSER_H

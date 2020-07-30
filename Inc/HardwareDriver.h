@@ -47,7 +47,7 @@ namespace HardwareDriver {
     void led(const std::vector<std::string> &args);
     void suction_current(const std::vector<std::string> &args);
     void uart(const std::vector<std::string> &args);
-    void sync_straight(const std::vector<std::string> &args);
+    //void sync_straight(const std::vector<std::string> &args);
     void move(const std::vector<std::string> &args);
     
     //! method error
